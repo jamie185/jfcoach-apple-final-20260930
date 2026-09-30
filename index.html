@@ -1,0 +1,621 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>JF Coach, the Apple way: built</title>
+<style>
+:root{--ink:#1d1d1f;--ink2:rgba(29,29,31,.62);--ink3:rgba(29,29,31,.42);--card:#EBF0F8;--line:#E4E7EE;--blue:#0071E3;--red:#C4291C;--amber:#A35A00;
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter",system-ui,sans-serif;--display:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter",system-ui,sans-serif}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:#fff;color:var(--ink);font:400 18px/1.45 var(--font);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.03em;line-height:1.02;margin:0}
+h1{font-size:clamp(46px,7vw,84px)} h2{font-size:clamp(34px,4.6vw,54px);margin-bottom:30px} h3{font-size:22px;letter-spacing:-.02em;line-height:1.2}
+p{margin:0}
+.sub{font-size:clamp(19px,2vw,23px);line-height:1.35;color:var(--ink2);max-width:680px}
+.sub.small{font-size:16px;margin-top:14px;max-width:none}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+section{padding:64px 0}
+.divider{height:1px;background:var(--line)}
+.card{background:var(--card);border-radius:28px;padding:34px}
+/* hero */
+.hero{padding:88px 0 64px}
+.hero .wrap{display:grid;grid-template-columns:1fr auto;gap:56px;align-items:center}
+.hero .sub{margin-top:22px}
+.ship{margin-top:28px;font:600 20px/1.35 var(--display);letter-spacing:-.01em;max-width:560px}
+.ship span{display:block;font:400 16px/1.4 var(--font);color:var(--ink2);margin-top:6px}
+.jump{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:26px;font-size:16px}
+.duo{position:relative;width:420px;height:560px;flex:none}
+.duo img{position:absolute;width:250px;border-radius:40px;box-shadow:0 0 0 1px rgba(0,0,0,.06),0 34px 60px -30px rgba(30,40,70,.55)}
+.duo img:first-child{left:0;top:0}
+.duo img:last-child{right:0;top:70px}
+/* what changed */
+.what{font-size:clamp(20px,2.1vw,25px);line-height:1.42;letter-spacing:-.01em;max-width:900px}
+.what b{font-weight:600}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:34px}
+.facts div{background:var(--card);border-radius:22px;padding:22px 24px}
+.facts b{display:block;font:700 40px/1 var(--display);letter-spacing:-.03em}
+.facts span{display:block;color:var(--ink2);font-size:15px;margin-top:8px;line-height:1.35}
+/* pairs */
+.area{padding:54px 0}
+.area+.area{border-top:1px solid var(--line)}
+.pairs{display:grid;grid-template-columns:repeat(2,1fr);gap:48px 40px}
+.pair h3{margin:18px 0 6px}
+.pair p{font-size:17px;line-height:1.42;color:var(--ink)}
+.pair .rule{margin-top:10px;font-size:15px;color:var(--ink2)}
+.pair .rule span{color:var(--ink3);white-space:nowrap}
+.phones{display:flex;gap:18px;align-items:flex-start}
+figure{margin:0}
+figure img,.nob{width:250px;aspect-ratio:390/844;border-radius:36px;display:block;object-fit:cover;background:#f2f2f7;box-shadow:0 0 0 1px rgba(0,0,0,.07),0 24px 46px -28px rgba(30,40,70,.45)}
+.nob{display:grid;place-items:center;text-align:center;color:var(--ink3);font:500 15px/1.4 var(--font)}
+figcaption{font:600 14px/1.3 var(--font);color:var(--ink2);margin:10px 0 0 6px}
+figure.aft figcaption{color:var(--blue)}
+.strip{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:26px 18px}
+.strip figure img{width:100%;border-radius:26px}
+.strip figcaption{color:var(--ink);font-weight:500}
+.intro{margin:-12px 0 30px}
+.reviewed{font-size:17px;line-height:1.45;color:var(--ink);max-width:820px;margin:-8px 0 30px;padding-left:16px;border-left:3px solid var(--blue)}
+/* checklist */
+.tally{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.tally div{background:var(--card);border-radius:22px;padding:22px 24px}
+.tally b{display:block;font:700 48px/1 var(--display);letter-spacing:-.03em}
+.tally span{display:block;color:var(--ink2);font-size:16px;margin-top:6px}
+.wait h3{margin-bottom:8px}.wait p{color:var(--ink2);font-size:17px;max-width:820px}
+.ctable{margin-top:30px}
+.cgroup{font-size:24px;margin:40px 0 6px}
+.chead,.crow{display:grid;grid-template-columns:36px minmax(0,1.25fr) 92px minmax(0,1fr) 124px;gap:18px;align-items:start}
+.chead{font:600 13px/1.3 var(--font);color:var(--ink3);text-transform:uppercase;letter-spacing:.04em;padding:0 0 10px;border-bottom:1px solid var(--line);position:sticky;top:0;background:#fff;z-index:1;padding-top:10px}
+.crow{padding:14px 0;border-bottom:1px solid var(--line);font-size:16px;line-height:1.42}
+.cn{color:var(--ink3);font-variant-numeric:tabular-nums}
+.cq .ev{color:var(--ink2);font-size:14.5px;margin-top:5px}
+.cr{font-weight:600}
+.st-fail .cr{color:var(--red)} .st-partial .cr{color:var(--amber)} .st-wait .cr,.st-n-a .cr{color:var(--ink3);font-weight:500}
+.ca{font-size:15px}
+.ca .rid{color:var(--ink3)}
+.ca q{display:block;color:var(--ink2);font-style:italic;margin-top:4px;quotes:"\201C" "\201D"}
+.ct{display:flex;gap:6px}
+.ct img{width:48px;aspect-ratio:390/560;object-position:top;object-fit:cover;border-radius:10px;box-shadow:0 0 0 1px rgba(0,0,0,.08);display:block}
+/* your rules */
+.dark{background:#1F2025;color:#fff;border-radius:28px;padding:54px}
+.dark h2{color:#fff}
+.dark .sub{color:rgba(255,255,255,.64)}
+.dec{list-style:none;margin:24px 0 0;padding:0;counter-reset:d}
+.dec li{counter-increment:d;display:grid;grid-template-columns:52px 1fr;gap:4px 14px;padding:20px 0;border-top:1px solid rgba(255,255,255,.12)}
+.dec li::before{content:counter(d);font:700 34px/1 var(--display);color:#8EC5FF}
+.dec b{font:600 20px/1.3 var(--display)}
+.dec span{grid-column:2;color:rgba(255,255,255,.72);font-size:17px}
+.dec a{color:#8EC5FF}
+/* android */
+.andr .strip{margin-top:34px;grid-template-columns:repeat(3,minmax(0,220px))}
+.andr p+p{margin-top:14px}
+/* open items */
+.open{list-style:none;margin:0;padding:0}
+.open li{display:grid;grid-template-columns:280px 1fr;gap:20px;padding:18px 0;border-top:1px solid var(--line)}
+.open li:first-child{border-top:0}
+.open b{font:600 18px/1.35 var(--display)}
+.open span{color:var(--ink2);font-size:17px}
+footer{padding:50px 0 90px;color:var(--ink3);font-size:15px}
+@media (max-width:1100px){
+  .hero .wrap{grid-template-columns:1fr}
+  .pairs{grid-template-columns:1fr}
+  .facts{grid-template-columns:repeat(2,1fr)}
+  .tally{grid-template-columns:repeat(3,1fr)}
+  .chead{display:none}
+  .crow{grid-template-columns:30px 1fr 80px}
+  .crow .ca{grid-column:2/4}.crow .ct{grid-column:2/4}
+  .open li{grid-template-columns:1fr;gap:4px}
+}
+@media (max-width:620px){
+  .wrap{padding:0 18px} .hero{padding:60px 0 40px} .card,.dark{padding:26px}
+  .duo{width:100%;height:auto;display:flex;gap:12px}.duo img{position:static;width:calc(50% - 6px);border-radius:26px}
+  figure img,.nob{width:calc((100vw - 54px)/2);border-radius:26px}
+  .phones{gap:14px}
+}
+</style>
+</head>
+<body>
+
+<header class="hero"><div class="wrap">
+  <div>
+    <h1>JF Coach,<br>the Apple way.<br>Built, checked, ready.</h1>
+    <p class="sub">The redesign is in the real app and passed an independent check against Apple&#x27;s own guidelines.</p>
+    <p class="ship">Goes live with the 1 October launch: Window 2, Wednesday 30 September at 7:30 pm.<span>Independent reviewers&#x27; verdict: ready. Before and after screenshots below come from the real app with sample data.</span></p>
+    <div class="jump"><a href="#what">What changed</a><a href="#home">Home</a><a href="#training">Training</a><a href="#food">Food</a><a href="#challenge">Challenge</a><a href="#community">Community</a><a href="#progress">Progress</a><a href="#wellbeing">Wellbeing</a><a href="#more">More</a><a href="#messages">Messages</a><a href="#sign-in">Sign-in</a><a href="#dark">Dark Mode and Larger Text</a><a href="#apple">Checked against Apple</a><a href="#rules">Your rules</a><a href="#android">Android</a><a href="#open">Open items</a></div>
+  </div>
+  <div class="duo"><img src="img/home-d1c6715ad5.webp" alt="Home, light"><img src="img/home-c6041ab683.webp" alt="Home, dark"></div>
+</div></header>
+
+<div class="divider"></div>
+
+<section id="what"><div class="wrap">
+  <h2>What changed</h2>
+  <p class="what">Every client screen in JF Coach was rebuilt to Apple's own rulebook for iPhone apps, in the real app rather than a mock-up. It now uses the <b>iPhone's own text sizes</b>, <b>lists that look like Settings</b>, <b>glass buttons in the top bar</b>, iPhone menus and sheets, <b>one bright button per screen</b> and bigger taps. It also <b>follows the phone's Dark Mode and text size</b>, which the current app doesn't. Your JF colours, the sky wash, the faded chapter pictures, the JFI orb, the mood faces, the tab bar and the + all stay. Nothing about what the app does has changed: same screens, same buttons, same saving.</p>
+  <div class="facts">
+    <div><b>10</b><span>areas, every client screen</span></div>
+    <div><b>33</b><span>before and after pairs on this page</span></div>
+    <div><b>71</b><span>Apple review questions checked</span></div>
+    <div><b>24</b><span>fixes from the independent reviews</span></div>
+  </div>
+</div></section>
+
+<div class="divider"></div>
+<section class="area" id="home"><div class="wrap"><h2>Home</h2><div class="pairs"><article class="pair"><div class="phones"><figure class=""><img src="img/01-home-9787ebd39b.webp" alt="Now" loading="lazy"><figcaption>Now</figcaption></figure><figure class="aft"><img src="img/home-d1c6715ad5.webp" alt="New" loading="lazy"><figcaption>New</figcaption></figure></div>
+  <h3>Today</h3><p>A big date title, the bell and your photo in one glass button group, and the workout card with one Start button.</p>
+  <p class="rule">Apple: <a href="https://developer.apple.com/design/human-interface-guidelines/buttons#Style" target="_blank" rel="noopener">One bright button per screen, so the main action is obvious.</a> <span>Buttons · K3</span></p></article><article class="pair"><div class="phones"><figure class=""><img src="img/10-home-something-shorter-bb3d35ae50.webp" alt="Now" loading="lazy"><figcaption>Now</figcaption></figure><figure class="aft"><img src="img/home-menu-f1e7aca0d7.webp" alt="New" loading="lazy"><figcaption>New</figcaption></figure></div>
+  <h3>The ••• menu</h3><p>Something Shorter, Move to Tomorrow and the rest now sit in an iPhone menu instead of crowding the card.</p>
+  <p class="rule">Apple: <a href="https://developer.apple.com/design/human-interface-guidelines/menus#Labels" target="_blank" rel="noopener">Secondary actions go in a menu of short verbs.</a> <span>Menus · PR20</span></p></article><article class="pair"><div class="phones"><figure class=""><img src="img/03-home-plus-menu-51032ccbf5.webp" alt="Now" loading="lazy"><figcaption>Now</figcaption></figure><figure class="aft"><img src="img/home-plus-973edef835.webp" alt="New" loading="lazy"><figcaption>New</figcaption></figure></div>
+  <h3>The + shortcuts</h3><p>The round + keeps its job and opens the shortcuts on glass, readable in light and dark.</p>
+  <p class="rule">Apple: <a href="https://developer.apple.com/design/human-interface-guidelines/materials#Liquid-Glass" target="_blank" rel="noopener">Glass is for controls floating above the content.</a> <span>Materials · G1</span></p></article><article class="pair"><div class="phones"><figure class=""><img src="img/06-notifications-empty-3f5528deee.webp" alt="Now" loading="lazy"><figcaption>Now</figcaption></figure><figure class="aft"><img src="img/notifications-552acfaf0e.webp" alt="New" loading="lazy"><figcaption>New</figcaption></figure></div>
+  <h3>Notifications</h3><p>A large title that shrinks into the bar as you scroll, and a calmer empty state with the settings row below.</p>
+  <p class="rule">Apple: <a href="https://developer.apple.com/design/human-interface-guidelines/toolbars#iOS" target="_blank" rel="noopener">Top-level screens get a large title.</a> <span>Toolbars · N9</span></p></article><article class="pair"><div class="phones"><figure class=""><img src="img/08-jfi-7b20eb1287.webp" alt="Now" loading="lazy"><figcaption>Now</figcaption></figure><figure class="aft"><img src="img/jfi-29441ee84d.webp" alt="New" loading="lazy"><figcaption>New</figcaption></figure></div>
+  <h3>JFI</h3><p>JFI&#x27;s replies look like Messages, with a glass message bar at the bottom.</p>
+  <p class="rule">Apple: <a href="https://developer.apple.com/design/human-interface-guidelines/materials#Liquid-Glass" target="_blank" rel="noopener">Content stays clear; glass only on the controls.</a> <span>Materials · G1</span></p></article></div></div></section><section class="area" id="training"><div class="wrap"><h2>Training</h2><div class="pairs"><article class="pair"><div class="phones"><figure class=""><img src="img/11-training-8bdc77155c.webp" alt="Now" loading="lazy"><figcaption>Now</figcaption></figure><figure class="aft"><img src="img/training-d47ff9fe95.webp" alt="New" loading="lazy"><figcaption>New</figcaption></figure></div>
+  <h3>Training</h3><p>The week at a glance and today&#x27;s session with one Start; everything else in a ••• menu.</p>
+  <p class="rule">Apple: <a href="https://developer.apple.com/design/human-interface-guidelines/buttons#Style" target="_blank" rel="noopener">At most one or two prominent buttons per view.</a> <span>Buttons · K3</span></p></article><article class="pair"><div class="phones"><figure class=""><img src="img/18-workout-preview-95f633ed88.webp" alt="Now" loading="lazy"><figcaption>Now</figcaption></figure><figure class="aft"><img src="img/workout-preview-e708a933c4.webp" alt="New" loading="lazy"><figcaption>New</figcaption></figure></div>
+  <h3>Workout preview</h3><p>Exercises in a clean inset list with Start as the one bright button.</p>
+  <p class="rule">Apple: <a href="https://developer.apple.com/design/human-interface-guidelines/lists-and-tables#Style" target="_blank" rel="noopener">Lists use the standard inset grouped style.</a> <span>Lists and tables · LT3</span></p></article><article class="pair"><div class="phones"><figure class=""><img src="img/22-workout-player-96baf2ce34.webp" alt="Now" loading="lazy"><figcaption>Now</figcaption></figure><figure class="aft"><img src="img/workout-player-3e643c16b4.webp" alt="New" loading="lazy"><figcaption>New</figcaption></figure></div>
+  <h3>During a workout</h3><p>Finish is the one bright button in the top bar, Edit moves into the ••• menu, and each set gets a 44-point tick.</p>
+  <p class="rule">Apple: <a href="https://developer.apple.com/design/human-interface-guidelines/buttons#Best-practices" target="_blank" rel="noopener">Every tap target at least 44 points.</a> <span>Buttons · K1</span></p></article><article class="pair"><div class="phones"><figure class=""><img src="img/19-program-builder-068e49f7a0.webp" alt="Now" loading="lazy"><figcaption>Now</figcaption></figure><figure class="aft"><img src="img/program-builder-cd1c7a5b0d.webp" alt="New" loading="lazy"><figcaption>New</figcaption></figure></div>
+  <h3>Program builder</h3><p>One question per step (Question 1 of 5), with the choices as a tick list instead of a wall of tags.</p>
+  <p class="rule">Apple: <a href="https://developer.apple.com/design/human-interface-guidelines/sheets#Anatomy" target="_blank" rel="noopener">Multistep flows move one step at a time.</a> <span>Sheets · PR6</span></p></article></div></div></section><section class="area" id="food"><div class="wrap"><h2>Food</h2><div class="pairs"><article class="pair"><div class="phones"><figure class=""><img src="img/27-food-486e1d0f48.webp" alt="Now" loading="lazy"><figcaption>Now</figcaption></figure><figure class="aft"><img src="img/food-2e794b4081.webp" alt="New" loading="lazy"><figcaption>New</figcaption></figure></div>
+  <h3>Food</h3><p>Calories and macros first, then each meal as a photo card with one Mark Eaten button.</p>
+  <p class="rule">Apple: <a href="https://developer.apple.com/design/human-interface-guidelines/layout#Visual-hierarchy" target="_blank" rel="noopener">The most important thing goes at the top.</a> <span>Layout · L1</span></p></article><article class="pair"><div class="phones"><figure class=""><img src="img/33-food-more-options-60c4f807c2.webp" alt="Now" loading="lazy"><figcaption>Now</figcaption></figure><figure class="aft"><img src="img/food-meal-menu-27f794bc21.webp" alt="New" loading="lazy"><figcaption>New</figcaption></figure></div>
+  <h3>Meal menu</h3><p>Swap Recipe, View Recipe and Show in Grocery List move into one ••• menu, so each meal card has just Mark Eaten.</p>
+  <p class="rule">Apple: <a href="https://developer.apple.com/design/human-interface-guidelines/menus#Labels" target="_blank" rel="noopener">Secondary actions go in a menu of short verbs.</a> <span>Menus · PR20</span></p></article><article class="pair"><div class="phones"><figure class=""><img src="img/34-food-add-c99df3fe41.webp" alt="Now" loading="lazy"><figcaption>Now</figcaption></figure><figure class="aft"><img src="img/food-addsheet-304719cba0.webp" alt="New" loading="lazy"><figcaption>New</figcaption></figure></div>
+  <h3>Add food</h3><p>Adding food is one sheet with search on top, instead of picking a method first.</p>
+  <p class="rule">Apple: <a href="https://developer.apple.com/design/human-interface-guidelines/search-fields#Best-practices" target="_blank" rel="noopener">Search sits where people expect it, with a helpful hint.</a> <span>Search fields · N17</span></p></article><article class="pair"><div class="phones"><figure class=""><img src="img/38-food-detail-e100cb6b09.webp" alt="Now" loading="lazy"><figcaption>Now</figcaption></figure><figure class="aft"><img src="img/food-detail-51bdd08e47.webp" alt="New" loading="lazy"><figcaption>New</figcaption></figure></div>
+  <h3>Food detail</h3><p>Serving size as a standard segmented control and the amount as a stepper.</p>
+  <p class="rule">Apple: <a href="https://developer.apple.com/design/human-interface-guidelines/segmented-controls#Best-practices" target="_blank" rel="noopener">Segmented controls for a few equal choices.</a> <span>Segmented controls · K11</span></p></article></div></div></section><section class="area" id="challenge"><div class="wrap"><h2>Challenge</h2><div class="pairs"><article class="pair"><div class="phones"><figure class=""><img src="img/45-challenge-b4c05a12ea.webp" alt="Now" loading="lazy"><figcaption>Now</figcaption></figure><figure class="aft"><img src="img/challenge-e0a3fe51e3.webp" alt="New" loading="lazy"><figcaption>New</figcaption></figure></div>
+  <h3>Challenge</h3><p>Your level as a Health-style number with a bar, stats in one row, and grouped lists underneath.</p>
+  <p class="rule">Apple: <a href="https://developer.apple.com/design/human-interface-guidelines/activity-rings#Best-practices" target="_blank" rel="noopener">Ring shapes are only for Apple&#x27;s Move, Exercise and Stand.</a> <span>Activity rings · AR1</span></p></article><article class="pair"><div class="phones"><figure class=""><img src="img/47-challenge-leaderboard-ea251ac888.webp" alt="Now" loading="lazy"><figcaption>Now</figcaption></figure><figure class="aft"><img src="img/board-44b802a58d.webp" alt="New" loading="lazy"><figcaption>New</figcaption></figure></div>
+  <h3>Leaderboard</h3><p>The boards as a standard segmented control and one ranked list, with you highlighted.</p>
+  <p class="rule">Apple: <a href="https://developer.apple.com/design/human-interface-guidelines/segmented-controls#Best-practices" target="_blank" rel="noopener">Segmented controls for a few equal choices.</a> <span>Segmented controls · K11</span></p></article><article class="pair"><div class="phones"><figure class=""><img src="img/48-challenge-scoring-9a65b8530a.webp" alt="Now" loading="lazy"><figcaption>Now</figcaption></figure><figure class="aft"><img src="img/challenge-scoring-9306859de3.webp" alt="New" loading="lazy"><figcaption>New</figcaption></figure></div>
+  <h3>How scoring works</h3><p>A grouped list with icon squares, like Settings, in a sheet with the small X.</p>
+  <p class="rule">Apple: <a href="https://developer.apple.com/design/human-interface-guidelines/lists-and-tables#Style" target="_blank" rel="noopener">Lists use the standard inset grouped style.</a> <span>Lists and tables · LT3</span></p></article><article class="pair"><div class="phones"><figure class=""><img src="img/46-challenge-weekly-d16ffa3500.webp" alt="Now" loading="lazy"><figcaption>Now</figcaption></figure><figure class="aft"><img src="img/weekly-c541fd00ae.webp" alt="New" loading="lazy"><figcaption>New</figcaption></figure></div>
+  <h3>Weekly challenge</h3><p>Today filled in the Challenge colour, and Save today&#x27;s total as the one bright button.</p>
+  <p class="rule">Apple: <a href="https://developer.apple.com/design/human-interface-guidelines/buttons#Style" target="_blank" rel="noopener">At most one or two prominent buttons per view.</a> <span>Buttons · K3</span></p></article><article class="pair"><div class="phones"><figure class=""><img src="img/49-challenge-goal-c2b7b351c1.webp" alt="Now" loading="lazy"><figcaption>Now</figcaption></figure><figure class="aft"><img src="img/challenge-goal-6b9420f07e.webp" alt="New" loading="lazy"><figcaption>New</figcaption></figure></div>
+  <h3>Your goal</h3><p>Your goal as a Health-style number with a bar, the switch inside its row, and Log current progress as the one button.</p>
+  <p class="rule">Apple: <a href="https://developer.apple.com/design/human-interface-guidelines/toggles#iOS-iPadOS" target="_blank" rel="noopener">Switches belong in list rows.</a> <span>Toggles · K9</span></p></article></div></div></section><section class="area" id="community"><div class="wrap"><h2>Community</h2><div class="pairs"><article class="pair"><div class="phones"><figure class=""><img src="img/56-community-dedc38b72c.webp" alt="Now" loading="lazy"><figcaption>Now</figcaption></figure><figure class="aft"><img src="img/community-0cd7cf5329.webp" alt="New" loading="lazy"><figcaption>New</figcaption></figure></div>
+  <h3>Community</h3><p>Accept a mate in place; tapping a mate opens the chat, with Nudge as the one button on the row.</p>
+  <p class="rule">Apple: <a href="https://developer.apple.com/design/human-interface-guidelines/buttons#Style" target="_blank" rel="noopener">One clear action per row.</a> <span>Buttons · K3</span></p></article><article class="pair"><div class="phones"><figure class=""><img src="img/57-community-message-sam-69076491a3.webp" alt="Now" loading="lazy"><figcaption>Now</figcaption></figure><figure class="aft"><img src="img/community-message-fd3cc9d3d3.webp" alt="New" loading="lazy"><figcaption>New</figcaption></figure></div>
+  <h3>Chat with a mate</h3><p>Messages-style bubbles and a glass message bar with a round send arrow.</p>
+  <p class="rule">Apple: <a href="https://developer.apple.com/design/human-interface-guidelines/materials#Liquid-Glass" target="_blank" rel="noopener">Glass only on the controls.</a> <span>Materials · G1</span></p></article><article class="pair"><div class="phones"><figure class=""><img src="img/58-community-share-2807c3232d.webp" alt="Now" loading="lazy"><figcaption>Now</figcaption></figure><figure class="aft"><img src="img/community-share-e882315e71.webp" alt="New" loading="lazy"><figcaption>New</figcaption></figure></div>
+  <h3>Share</h3><p>The share options as a grouped list in a sheet.</p>
+  <p class="rule">Apple: <a href="https://developer.apple.com/design/human-interface-guidelines/sheets#iOS-iPadOS" target="_blank" rel="noopener">Sheets for short, focused tasks.</a> <span>Sheets · PR7</span></p></article></div></div></section><section class="area" id="progress"><div class="wrap"><h2>Progress</h2><div class="pairs"><article class="pair"><div class="phones"><figure class=""><img src="img/40-progress-88a476330e.webp" alt="Now" loading="lazy"><figcaption>Now</figcaption></figure><figure class="aft"><img src="img/progress-8d0c4ab009.webp" alt="New" loading="lazy"><figcaption>New</figcaption></figure></div>
+  <h3>Progress</h3><p>Body weight as an Apple-style chart: numbers on the right, the latest point ringed, a one-line summary, and the range as a standard segmented control.</p>
+  <p class="rule">Apple: <a href="https://developer.apple.com/design/human-interface-guidelines/charts#Descriptive-content" target="_blank" rel="noopener">Every chart says its message in words.</a> <span>Charts · CH4</span></p></article><article class="pair"><div class="phones"><figure class=""><img src="img/43-progress-log-weight-3ad6865055.webp" alt="Now" loading="lazy"><figcaption>Now</figcaption></figure><figure class="aft"><img src="img/progress-log-weight-e49a19b0a6.webp" alt="New" loading="lazy"><figcaption>New</figcaption></figure></div>
+  <h3>Log weight</h3><p>Logging weight uses an iPhone wheel in a sheet; it saves exactly as before.</p>
+  <p class="rule">Apple: <a href="https://developer.apple.com/design/human-interface-guidelines/sheets#iOS-iPadOS" target="_blank" rel="noopener">Sheets for short, focused tasks.</a> <span>Sheets · PR7</span></p></article></div></div></section><section class="area" id="wellbeing"><div class="wrap"><h2>Wellbeing</h2><div class="pairs"><article class="pair"><div class="phones"><figure class=""><img src="img/65-wellbeing-ffffc4387c.webp" alt="Now" loading="lazy"><figcaption>Now</figcaption></figure><figure class="aft"><img src="img/wellbeing-248f582be5.webp" alt="New" loading="lazy"><figcaption>New</figcaption></figure></div>
+  <h3>Wellbeing</h3><p>A large title, the JF mood faces kept, the mood goal as a segmented control and breathing as grouped rows.</p>
+  <p class="rule">Apple: <a href="https://developer.apple.com/design/human-interface-guidelines/toolbars#iOS" target="_blank" rel="noopener">Top-level screens get a large title.</a> <span>Toolbars · N9</span></p></article><article class="pair"><div class="phones"><figure class=""><img src="img/72-checkin-b94a5efd06.webp" alt="Now" loading="lazy"><figcaption>Now</figcaption></figure><figure class="aft"><img src="img/checkin-6d96c1f79c.webp" alt="New" loading="lazy"><figcaption>New</figcaption></figure></div>
+  <h3>Weekly check-in</h3><p>The question becomes the screen&#x27;s title on a plain page, with 1 to 5 as five equal buttons.</p>
+  <p class="rule">Apple: <a href="https://developer.apple.com/design/human-interface-guidelines/typography#Conveying-hierarchy" target="_blank" rel="noopener">Use Apple&#x27;s standard text sizes.</a> <span>Typography · T4</span></p></article></div></div></section><section class="area" id="more"><div class="wrap"><h2>More</h2><div class="pairs"><article class="pair"><div class="phones"><figure class=""><img src="img/61-more-166380c969.webp" alt="Now" loading="lazy"><figcaption>Now</figcaption></figure><figure class="aft"><img src="img/more-20eebff7c6.webp" alt="New" loading="lazy"><figcaption>New</figcaption></figure></div>
+  <h3>More</h3><p>The Settings pattern everyone knows: your profile first, then rows with coloured icon squares and arrows.</p>
+  <p class="rule">Apple: <a href="https://developer.apple.com/design/human-interface-guidelines/lists-and-tables#Style" target="_blank" rel="noopener">Lists use the standard inset grouped style.</a> <span>Lists and tables · LT3</span></p></article><article class="pair"><div class="phones"><figure class=""><img src="img/62-profile-5b8bc209ab.webp" alt="Now" loading="lazy"><figcaption>Now</figcaption></figure><figure class="aft"><img src="img/profile-03e687d58d.webp" alt="New" loading="lazy"><figcaption>New</figcaption></figure></div>
+  <h3>Profile</h3><p>A large Settings title, your photo centred, and rows with coloured icon squares like the iPhone&#x27;s own Settings.</p>
+  <p class="rule">Apple: <a href="https://developer.apple.com/design/human-interface-guidelines/toolbars#iOS" target="_blank" rel="noopener">Top-level screens get a large title.</a> <span>Toolbars · N9</span></p></article><article class="pair"><div class="phones"><figure class=""><img src="img/63-settings-notifications-f2ccf2adb5.webp" alt="Now" loading="lazy"><figcaption>Now</figcaption></figure><figure class="aft"><img src="img/settings-notifications-d6d5f0b4ed.webp" alt="New" loading="lazy"><figcaption>New</figcaption></figure></div>
+  <h3>Notification settings</h3><p>Allow notifications becomes the one bright button, and &quot;Not allowed&quot; is plain text instead of a grey tag.</p>
+  <p class="rule">Apple: <a href="https://developer.apple.com/design/human-interface-guidelines/buttons#Style" target="_blank" rel="noopener">The most likely action gets the prominent style.</a> <span>Buttons · K3</span></p></article><article class="pair"><div class="phones"><figure class=""><img src="img/74-integrations-0e33f5ead6.webp" alt="Now" loading="lazy"><figcaption>Now</figcaption></figure><figure class="aft"><img src="img/integrations-e84e5d2a98.webp" alt="New" loading="lazy"><figcaption>New</figcaption></figure></div>
+  <h3>Connected apps</h3><p>A large title, coloured icon squares for each app, and Connect in the app&#x27;s link colour.</p>
+  <p class="rule">Apple: <a href="https://developer.apple.com/design/human-interface-guidelines/lists-and-tables#Style" target="_blank" rel="noopener">Lists use the standard inset grouped style.</a> <span>Lists and tables · LT3</span></p></article></div></div></section><section class="area" id="messages"><div class="wrap"><h2>Messages</h2><div class="pairs"><article class="pair"><div class="phones"><figure class=""><img src="img/69-messages-418e5dc334.webp" alt="Now" loading="lazy"><figcaption>Now</figcaption></figure><figure class="aft"><img src="img/messages-cccc5c67eb.webp" alt="New" loading="lazy"><figcaption>New</figcaption></figure></div>
+  <h3>Messages</h3><p>Like the Messages app: one row per person, newest first.</p>
+  <p class="rule">Apple: <a href="https://developer.apple.com/design/human-interface-guidelines/lists-and-tables#Style" target="_blank" rel="noopener">Lists use the standard inset grouped style.</a> <span>Lists and tables · LT3</span></p></article><article class="pair"><div class="phones"><figure class=""><img src="img/70-chat-coach-6647f1ee03.webp" alt="Now" loading="lazy"><figcaption>Now</figcaption></figure><figure class="aft"><img src="img/chat-2797b9bf04.webp" alt="New" loading="lazy"><figcaption>New</figcaption></figure></div>
+  <h3>Chat with your trainer</h3><p>The thread sits on the plain page like Messages, without the extra card around the greeting.</p>
+  <p class="rule">Apple: <a href="https://developer.apple.com/design/human-interface-guidelines/materials#Liquid-Glass" target="_blank" rel="noopener">Glass only on the controls.</a> <span>Materials · G1</span></p></article></div></div></section><section class="area" id="sign-in"><div class="wrap"><h2>Sign-in</h2><div class="pairs"><article class="pair"><div class="phones"><figure class=""><img src="img/signin-email-441361b6f2.webp" alt="Now" loading="lazy"><figcaption>Now</figcaption></figure><figure class="aft"><img src="img/signin-email-a91073b01e.webp" alt="New" loading="lazy"><figcaption>New</figcaption></figure></div>
+  <h3>Sign in</h3><p>The JF app icon centred, a clear title, labelled fields and one bright button. Follows Dark Mode and text size.</p>
+  <p class="rule">Apple: <a href="https://developer.apple.com/design/human-interface-guidelines/text-fields#Best-practices" target="_blank" rel="noopener">Text fields have visible labels.</a> <span>Text fields · K16</span></p></article><article class="pair"><div class="phones"><figure class=""><img src="img/76-onboarding-1-coach-43ecbe1a45.webp" alt="Now" loading="lazy"><figcaption>Now</figcaption></figure><figure class="aft"><img src="img/w01-welcome-a9fe87c067.webp" alt="New" loading="lazy"><figcaption>New</figcaption></figure></div>
+  <h3>First open</h3><p>A calm Welcome with Get Started, then Continue on each step and Done at the end.</p>
+  <p class="rule">Apple: <a href="https://developer.apple.com/design/human-interface-guidelines/writing#Best-practices" target="_blank" rel="noopener">Consistent Get Started, Continue, Done wording.</a> <span>Writing · W5</span></p></article></div></div></section>
+<div class="divider"></div>
+
+<section id="dark"><div class="wrap">
+  <h2>Dark Mode</h2>
+  <p class="sub intro">The app now follows the iPhone. When the phone goes dark at night, so does JF Coach: no white cards, no hidden text, and the chapter pictures dim so they don't glare.</p>
+  <div class="strip"><figure class="aft"><img src="img/home-c6041ab683.webp" alt="Home" loading="lazy"><figcaption>Home</figcaption></figure><figure class="aft"><img src="img/training-dcd21523b1.webp" alt="Training" loading="lazy"><figcaption>Training</figcaption></figure><figure class="aft"><img src="img/food-d45b5cf601.webp" alt="Food" loading="lazy"><figcaption>Food</figcaption></figure><figure class="aft"><img src="img/challenge-da6a8f0c67.webp" alt="Challenge" loading="lazy"><figcaption>Challenge</figcaption></figure><figure class="aft"><img src="img/progress-002e0643c3.webp" alt="Progress" loading="lazy"><figcaption>Progress</figcaption></figure><figure class="aft"><img src="img/more-1f3582801b.webp" alt="More" loading="lazy"><figcaption>More</figcaption></figure></div>
+</div></section>
+
+<section id="larger"><div class="wrap">
+  <h2>Larger Text</h2>
+  <p class="sub intro">For anyone who has turned up the text size in Settings. Text grows, rows get taller and side-by-side items stack instead of cutting words off. The tab bar labels stay the same size, as Apple does it.</p>
+  <div class="strip"><figure class="aft"><img src="img/home-96613c985b.webp" alt="Home, largest standard size" loading="lazy"><figcaption>Home, largest standard size</figcaption></figure><figure class="aft"><img src="img/training-9df1c982f0.webp" alt="Training, largest standard size" loading="lazy"><figcaption>Training, largest standard size</figcaption></figure><figure class="aft"><img src="img/food-1b95d4e894.webp" alt="Food, largest standard size" loading="lazy"><figcaption>Food, largest standard size</figcaption></figure><figure class="aft"><img src="img/progress-f9a8f2cefd.webp" alt="Progress, largest standard size" loading="lazy"><figcaption>Progress, largest standard size</figcaption></figure><figure class="aft"><img src="img/home-7df763d6b5.webp" alt="Home, accessibility size" loading="lazy"><figcaption>Home, accessibility size</figcaption></figure><figure class="aft"><img src="img/more-8cd583dcf9.webp" alt="More, accessibility size" loading="lazy"><figcaption>More, accessibility size</figcaption></figure></div>
+</div></section>
+
+<div class="divider"></div>
+
+<section id="apple"><div class="wrap">
+  <h2>Checked against Apple's documentation</h2>
+  <p class="sub intro">Apple publishes a design guide for iPhone apps, the Human Interface Guidelines. We saved the whole guide and turned it into a 71-question review list. Each answer below links to the Apple page it comes from.</p>
+  <p class="reviewed">The design was independently reviewed by Codex gpt-6.1-sol, which checked the code and, separately, every screen, and by Claude, which swept every screen and sheet in light, dark and larger text. Every must-fix they found is fixed; the answers below are graded against the finished build.</p>
+  <div class="tally"><div><b>55</b><span>Yes</span></div><div><b>7</b><span>Partly</span></div><div><b>1</b><span>No</span></div><div><b>4</b><span>Not used</span></div><div><b>4</b><span>Your rule</span></div></div><p class="sub small">Out of 71 questions from Apple's own design review list. "Not used" means the app doesn't have that thing (for example a widget). "Your rule" means we follow your standing rule instead, on purpose.</p><div class="ctable"><div class="chead"><div>#</div><div>Question</div><div>Result</div><div>Apple says</div><div>Screen</div></div><h3 class="cgroup">Structure and navigation</h3><div class="crow st-pass">
+  <div class="cn">1</div>
+  <div class="cq"><p>Is the primary task obvious, with secondary actions tucked away?</p><p class="ev">Home leads with one prominent Start for the next task; secondary choices (Something Shorter, Move to Tomorrow, Already Done, Preview Exercises) sit in the ... menu.</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/designing-for-ios#Best-practices" target="_blank" rel="noopener">Designing for iOS</a><span class="rid"> · P1</span><q>Help people concentrate on primary tasks and content by limiting the number of onscreen controls while making secondary details and actions discoverable with minimal interaction.</q></div>
+  <div class="ct"><a href="img/home-5c5f6f246b.webp" target="_blank"><img src="img/home-39dfb81ed5.webp" alt="" loading="lazy"></a><a href="img/home-menu-c3251c5545.webp" target="_blank"><img src="img/home-menu-784349de2f.webp" alt="" loading="lazy"></a></div></div><div class="crow st-pass">
+  <div class="cn">2</div>
+  <div class="cq"><p>Do frequent controls sit in thumb reach (middle or bottom)?</p><p class="ev">Tab bar, the + launcher, primary Start/Save/Finish buttons and the workout rest bar all sit in the middle or bottom of the screen.</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/designing-for-ios#Best-practices" target="_blank" rel="noopener">Designing for iOS</a><span class="rid"> · P3</span><q>For example, it tends to be easier and more comfortable for people to reach a control when it’s located in the middle or bottom area of the display</q></div>
+  <div class="ct"><a href="img/home-5c5f6f246b.webp" target="_blank"><img src="img/home-39dfb81ed5.webp" alt="" loading="lazy"></a><a href="img/t-finish-confirm-4f7abc5c46.webp" target="_blank"><img src="img/t-finish-confirm-9fc3443f07.webp" alt="" loading="lazy"></a></div></div><div class="crow st-pass">
+  <div class="cn">3</div>
+  <div class="cq"><p>Does all content and every control stay clear of the Dynamic Island, status bar, home indicator and bars (safe areas respected)?</p><p class="ev">Content and controls stay below the status bar and above the tab bar and home indicator; the measure pass found no content hidden behind the tab bar.</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/layout#Guides-and-safe-areas" target="_blank" rel="noopener">Layout</a><span class="rid"> · L4</span><q>Respecting the safe area is essential to make sure system UI and hardware features like the Dynamic Island don’t obstruct content and controls.</q></div>
+  <div class="ct"><a href="img/home-scrolled-8e687476c2.webp" target="_blank"><img src="img/home-scrolled-48b220316c.webp" alt="" loading="lazy"></a><a href="img/training-scrolled-7f691c5ef8.webp" target="_blank"><img src="img/training-scrolled-915fafdbf2.webp" alt="" loading="lazy"></a></div></div><div class="crow st-pass">
+  <div class="cn">4</div>
+  <div class="cq"><p>Is the status bar legible (scroll edge blur behind it) and not covering interactive content?</p><p class="ev">Scrolled screens fade content out under a soft scroll edge behind the collapsed title and status bar, so the status bar stays readable and nothing looks tappable behind it.</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/status-bars" target="_blank" rel="noopener">Status bars</a><span class="rid"> · L9</span><q>Be sure to keep the status bar readable, and don’t imply that content behind it is interactive.</q></div>
+  <div class="ct"><a href="img/home-scrolled-8e687476c2.webp" target="_blank"><img src="img/home-scrolled-48b220316c.webp" alt="" loading="lazy"></a><a href="img/food-scrolled-0e2603f903.webp" target="_blank"><img src="img/food-scrolled-9fd19f8702.webp" alt="" loading="lazy"></a></div></div><div class="crow st-owner-override">
+  <div class="cn">5</div>
+  <div class="cq"><p>Does the tab bar navigate only (no action tabs), stay visible, and show no disabled or hidden tabs?</p><p class="ev">The tabs only navigate, stay visible and none are hidden or disabled. The round + at the bottom right opens JFI and quick actions; that is an action, not a tab, and it stays because it is part of the original tab bar you kept.</p></div>
+  <div class="cr">Your rule</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/tab-bars#Best-practices" target="_blank" rel="noopener">Tab bars</a><span class="rid"> · N1, N2, N4</span><q>Use a tab bar to support navigation, not to provide actions.</q></div>
+  <div class="ct"><a href="img/home-5c5f6f246b.webp" target="_blank"><img src="img/home-39dfb81ed5.webp" alt="" loading="lazy"></a></div></div><div class="crow st-owner-override">
+  <div class="cn">6</div>
+  <div class="cq"><p>Does every tab have a one-word label and a filled symbol?</p><p class="ev">Labels are single words (Home, Training, Challenge, More). The icons are the original outline JF glyphs, not filled SF Symbols, because you kept the original tab bar and JF icons.</p></div>
+  <div class="cr">Your rule</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/tab-bars#Best-practices" target="_blank" rel="noopener">Tab bars</a><span class="rid"> · N5</span><q>Use single words whenever possible.</q></div>
+  <div class="ct"><a href="img/home-5c5f6f246b.webp" target="_blank"><img src="img/home-39dfb81ed5.webp" alt="" loading="lazy"></a><a href="img/tab-light-93a86faa78.webp" target="_blank"><img src="img/tab-light-a48da9120f.webp" alt="" loading="lazy"></a></div></div><div class="crow st-pass">
+  <div class="cn">7</div>
+  <div class="cq"><p>Is there a useful screen title (not the app name, under 15 characters), large where it&#x27;s a top-level screen?</p><p class="ev">Top-level screens have short large titles (Today, Training, Challenge, Food, Progress, More, Settings) that collapse to inline titles on scroll. Settings now sits under the back button with the normal gap.</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/toolbars#Titles" target="_blank" rel="noopener">Toolbars</a><span class="rid"> · N8, N9</span><q>Aim for a word or short phrase that distills the purpose of the window or view, and keep the title under 15 characters long so you leave enough room for other controls.</q></div>
+  <div class="ct"><a href="img/home-5c5f6f246b.webp" target="_blank"><img src="img/home-39dfb81ed5.webp" alt="" loading="lazy"></a><a href="img/profile2-aaa59f4d44.webp" target="_blank"><img src="img/profile2-a8fa9f4f20.webp" alt="" loading="lazy"></a></div></div><div class="crow st-pass">
+  <div class="cn">8</div>
+  <div class="cq"><p>Are Back and Close the standard symbols, not text?</p><p class="ev">Back is always the chevron and Close the small circular X, never text. Check-in question 1 and the habits editor show only the X; later check-in steps show Back plus X, which is the normal step-back. The weekly challenge has one back chevron, the workout preview has only the X, and the calendar day, secret challenge, JFmoji locked item and map emote sheets lost their text Close.</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/toolbars#Navigation" target="_blank" rel="noopener">Toolbars</a><span class="rid"> · N10</span><q>Prefer the standard symbols for each, and don’t use a text label that says Back or Close.</q></div>
+  <div class="ct"><a href="img/cal-day-light-fc559baf1f.webp" target="_blank"><img src="img/cal-day-light-c5ee804cfa.webp" alt="" loading="lazy"></a><a href="img/workout-preview-ac74f3a962.webp" target="_blank"><img src="img/workout-preview-edf90cf8eb.webp" alt="" loading="lazy"></a></div></div><div class="crow st-pass">
+  <div class="cn">9</div>
+  <div class="cq"><p>Is there at most one prominent primary action in the bar, on the trailing side?</p><p class="ev">Where a bar has a primary action it is a single prominent button on the trailing side (Finish in the workout player, Add on the food detail).</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/toolbars#Actions" target="_blank" rel="noopener">Toolbars</a><span class="rid"> · N12</span><q>Only specify one primary action, and put it on the trailing side of the toolbar.</q></div>
+  <div class="ct"><a href="img/t-finish-confirm-4f7abc5c46.webp" target="_blank"><img src="img/t-finish-confirm-9fc3443f07.webp" alt="" loading="lazy"></a><a href="img/f-food-detail-718c817c08.webp" target="_blank"><img src="img/f-food-detail-d55380cf02.webp" alt="" loading="lazy"></a></div></div><div class="crow st-pass">
+  <div class="cn">10</div>
+  <div class="cq"><p>Are there at most three groups of toolbar items, with symbol and text buttons kept apart?</p><p class="ev">Bars use at most back plus one grouped cluster of symbols; the text Finish button sits apart from the ... symbol button.</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/toolbars#Item-groupings" target="_blank" rel="noopener">Toolbars</a><span class="rid"> · N13</span><q>Too many groups of controls can make a toolbar feel cluttered and confusing, even with the added space on iPad and Mac.</q></div>
+  <div class="ct"><a href="img/food-scrolled-0e2603f903.webp" target="_blank"><img src="img/food-scrolled-9fd19f8702.webp" alt="" loading="lazy"></a><a href="img/t-finish-confirm-4f7abc5c46.webp" target="_blank"><img src="img/t-finish-confirm-9fc3443f07.webp" alt="" loading="lazy"></a></div></div><div class="crow st-pass">
+  <div class="cn">11</div>
+  <div class="cq"><p>Is search in the right place (tab, bottom toolbar or inline) with helpful placeholder text?</p><p class="ev">Search sits inline at the top of the sheet it filters, with specific placeholders (&quot;Foods, brands or recipes&quot;, &quot;Search activity&quot;, &quot;Search recipes&quot;).</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/search-fields#iOS" target="_blank" rel="noopener">Search fields</a><span class="rid"> · N16, N17</span><q>Place search at the bottom if there’s room.</q></div>
+  <div class="ct"><a href="img/f-addfood-f893b2cb3d.webp" target="_blank"><img src="img/f-addfood-39ba72d24c.webp" alt="" loading="lazy"></a><a href="img/home-log-activity-595eb6dc9b.webp" target="_blank"><img src="img/home-log-activity-c5660729aa.webp" alt="" loading="lazy"></a></div></div><h3 class="cgroup">Liquid Glass, colour and materials</h3><div class="crow st-pass">
+  <div class="cn">12</div>
+  <div class="cq"><p>Is Liquid Glass used only for controls and navigation, never on content cards or backgrounds?</p><p class="ev">Glass is limited to the tab bar, the + button, the toolbar groups, menus and the back chip. Content cards are opaque grouped cells.</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/materials#Liquid-Glass" target="_blank" rel="noopener">Materials</a><span class="rid"> · G1, G2</span><q>Don’t use Liquid Glass in the content layer.</q></div>
+  <div class="ct"><a href="img/home-5c5f6f246b.webp" target="_blank"><img src="img/home-39dfb81ed5.webp" alt="" loading="lazy"></a><a href="img/food-scrolled-0e2603f903.webp" target="_blank"><img src="img/food-scrolled-9fd19f8702.webp" alt="" loading="lazy"></a></div></div><div class="crow st-pass">
+  <div class="cn">13</div>
+  <div class="cq"><p>Are bars free of custom solid or tinted backgrounds, using a scroll edge effect instead?</p><p class="ev">Nav bars have no solid or tinted fill at rest; on scroll a scroll edge effect fades the content behind the title.</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/layout#Visual-hierarchy" target="_blank" rel="noopener">Layout</a><span class="rid"> · L3, G8</span><q>Instead of applying a solid or semi-opaque background color beneath controls, use a scroll edge effect to visually elevate controls above content.</q></div>
+  <div class="ct"><a href="img/training-scrolled-7f691c5ef8.webp" target="_blank"><img src="img/training-scrolled-915fafdbf2.webp" alt="" loading="lazy"></a><a href="img/progress-scrolled-421b3f4a55.webp" target="_blank"><img src="img/progress-scrolled-49792dc767.webp" alt="" loading="lazy"></a></div></div><div class="crow st-pass">
+  <div class="cn">14</div>
+  <div class="cq"><p>Is colour on glass limited to one emphasised element (the primary action&#x27;s background)?</p><p class="ev">Glass controls are monochrome; colour appears only on the primary action inside content (Start, Save, Finish, Add). The JFI orb is the one branded exception on the + launcher.</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/color#Liquid-Glass-color" target="_blank" rel="noopener">Color</a><span class="rid"> · G6</span><q>To emphasize primary actions, apply color to the background rather than to symbols or text.</q></div>
+  <div class="ct"><a href="img/food-scrolled-0e2603f903.webp" target="_blank"><img src="img/food-scrolled-9fd19f8702.webp" alt="" loading="lazy"></a><a href="img/home-5c5f6f246b.webp" target="_blank"><img src="img/home-39dfb81ed5.webp" alt="" loading="lazy"></a></div></div><div class="crow st-pass">
+  <div class="cn">15</div>
+  <div class="cq"><p>Are bar labels monochrome (or clearly contrasting) over colourful content, and legible at rest?</p><p class="ev">Tab labels are dark grey (current #1d1e22) in light and label/label2 in dark, legible at rest over any content.</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/color#Liquid-Glass-color" target="_blank" rel="noopener">Color</a><span class="rid"> · G7</span><q>If your app features colorful backgrounds or visually rich content, prefer a monochromatic appearance for toolbars and tab bars, or choose an accent color with sufficient visual differentiation.</q></div>
+  <div class="ct"><a href="img/tab-light-93a86faa78.webp" target="_blank"><img src="img/tab-light-a48da9120f.webp" alt="" loading="lazy"></a><a href="img/tab-dark-3a43b9a6e2.webp" target="_blank"><img src="img/tab-dark-a2f973cb3c.webp" alt="" loading="lazy"></a></div></div><div class="crow st-n-a">
+  <div class="cn">16</div>
+  <div class="cq"><p>If clear glass sits over bright media, is there a 35% dark dimming layer?</p><p class="ev">The app does not use clear glass. The buttons over the recipe photo use frosted regular glass, which carries its own backing, so no dimming layer applies.</p></div>
+  <div class="cr">Not used</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/materials#Liquid-Glass" target="_blank" rel="noopener">Materials</a><span class="rid"> · G5</span><q>If the underlying content is bright, consider adding a dark dimming layer of 35% opacity.</q></div>
+  <div class="ct"><a href="img/f-recipe-7312a3f7c6.webp" target="_blank"><img src="img/f-recipe-4d841b1d6a.webp" alt="" loading="lazy"></a></div></div><div class="crow st-pass">
+  <div class="cn">17</div>
+  <div class="cq"><p>Does each colour mean one thing, with the accent reserved for primary actions and status?</p><p class="ev">Each section has one tint (Training orange, Challenge/Food green, Home blue, Progress purple), used for its primary actions, links and status. Red is kept for destructive actions and Missed.</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/color#Best-practices" target="_blank" rel="noopener">Color</a><span class="rid"> · C1, C7</span><q>Avoid using the same color to mean different things.</q></div>
+  <div class="ct"><a href="img/training-d6b88081af.webp" target="_blank"><img src="img/training-99969bcf19.webp" alt="" loading="lazy"></a><a href="img/food-3da8bc5aff.webp" target="_blank"><img src="img/food-0aeeb29f8a.webp" alt="" loading="lazy"></a></div></div><div class="crow st-pass">
+  <div class="cn">18</div>
+  <div class="cq"><p>Is no meaning conveyed by colour alone?</p><p class="ev">The week strip uses a filled dot for PT done, a diamond for Solo done and a hollow ring for Planned, with a legend. Mood dots carry faces and text labels, and the calendar has a Done/Planned legend.</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/color#Inclusive-color" target="_blank" rel="noopener">Color</a><span class="rid"> · C3, A4</span><q>Avoid relying solely on color to differentiate between objects, indicate interactivity, or communicate essential information.</q></div>
+  <div class="ct"><a href="img/training-d6b88081af.webp" target="_blank"><img src="img/training-99969bcf19.webp" alt="" loading="lazy"></a><a href="img/wellbeing-4a369efd32.webp" target="_blank"><img src="img/wellbeing-d236c8c3d4.webp" alt="" loading="lazy"></a></div></div><div class="crow st-pass">
+  <div class="cn">19</div>
+  <div class="cq"><p>Are backgrounds the correct semantic set (grouped vs system, with the right hierarchy)?</p><p class="ev">Screens use the grouped set: #F2F2F7 page, white inset cells and #1C1C1E/#2C2C2E in dark. A section wash sits behind the header only.</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/color#iOS-iPadOS" target="_blank" rel="noopener">Color</a><span class="rid"> · C5</span><q>iOS defines two sets of dynamic background colors — system and grouped — each of which contains primary, secondary, and tertiary variants that help you convey a hierarchy of information.</q></div>
+  <div class="ct"><a href="img/more-f01650a219.webp" target="_blank"><img src="img/more-ff03b49d1b.webp" alt="" loading="lazy"></a><a href="img/profile-b54f2c3443.webp" target="_blank"><img src="img/profile-2e5b797d7c.webp" alt="" loading="lazy"></a></div></div><div class="crow st-partial">
+  <div class="cn">20</div>
+  <div class="cq"><p>Do all colours have working light, dark and increased-contrast variants?</p><p class="ev">Light and dark tokens exist, and Increase Contrast raises secondary labels, separators and glass. The Trainer login text on sign-in now reads in dark. Still open: the section tints (Training orange, Food green and the rest) have no separate increased-contrast values.</p></div>
+  <div class="cr">Partly</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/color#Best-practices" target="_blank" rel="noopener">Color</a><span class="rid"> · C2, D2</span><q>Make sure all your app’s colors work well in light, dark, and increased contrast contexts.</q></div>
+  <div class="ct"><a href="img/food-ic-26055b6bf7.webp" target="_blank"><img src="img/food-ic-447868e4f7.webp" alt="" loading="lazy"></a><a href="img/login-dark-desk-33bdc53638.webp" target="_blank"><img src="img/login-dark-desk-17dd753ed5.webp" alt="" loading="lazy"></a></div></div><h3 class="cgroup">Typography</h3><div class="crow st-pass">
+  <div class="cn">21</div>
+  <div class="cq"><p>Is body text 17 pt at default size, and nothing smaller than 11 pt?</p><p class="ev">Body text is 17 pt and grows with the phone&#x27;s text size. A fresh sweep of 28 screens in light and dark on the finished build found no text under 11 pt; the club map pin labels are now 11 pt.</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/typography#Ensuring-legibility" target="_blank" rel="noopener">Typography</a><span class="rid"> · T2</span><q>Follow the recommended default and minimum text sizes for each platform — for both custom and system fonts — to ensure your text is legible on all devices.</q></div>
+  <div class="ct"><a href="img/home-5c5f6f246b.webp" target="_blank"><img src="img/home-39dfb81ed5.webp" alt="" loading="lazy"></a><a href="img/map-a5b271f478.webp" target="_blank"><img src="img/map-c422170083.webp" alt="" loading="lazy"></a></div></div><div class="crow st-pass">
+  <div class="cn">22</div>
+  <div class="cq"><p>Are weights Regular or heavier, with no Ultralight, Thin or Light at small sizes?</p><p class="ev">No Ultralight, Thin or Light weights are used; body text is Regular 400 and headings Semibold or Bold.</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/typography#Ensuring-legibility" target="_blank" rel="noopener">Typography</a><span class="rid"> · T3</span><q>For example, if you’re using system-provided fonts, prefer Regular, Medium, Semibold, or Bold font weights, and avoid Ultralight, Thin, and Light font weights</q></div>
+  <div class="ct"><a href="img/home-5c5f6f246b.webp" target="_blank"><img src="img/home-39dfb81ed5.webp" alt="" loading="lazy"></a></div></div><div class="crow st-pass">
+  <div class="cn">23</div>
+  <div class="cq"><p>Do the sizes match the iOS text styles (Large Title 34, Title 1 28, Title 2 22, Title 3 20, Headline 17 semibold, Body 17, Callout 16, Subhead 15, Footnote 13, Caption 12 or 11)?</p><p class="ev">Tokens follow the iOS styles: Large Title 34, Title 1 28, Title 2 22, Headline 17 semibold, Body 17, Subhead 15, Footnote 13, with 17 pt inline titles once collapsed.</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/typography#Conveying-hierarchy" target="_blank" rel="noopener">Typography</a><span class="rid"> · T4</span><q>Adjust font weight, size, and color as needed to emphasize important information and help people visualize hierarchy.</q></div>
+  <div class="ct"><a href="img/home-5c5f6f246b.webp" target="_blank"><img src="img/home-39dfb81ed5.webp" alt="" loading="lazy"></a><a href="img/progress-scrolled-421b3f4a55.webp" target="_blank"><img src="img/progress-scrolled-49792dc767.webp" alt="" loading="lazy"></a></div></div><div class="crow st-pass">
+  <div class="cn">24</div>
+  <div class="cq"><p>Is there at most one extra typeface beyond SF, and does it scale with Dynamic Type?</p><p class="ev">The app uses the system font stack (SF on iPhone, Roboto on Android) plus the SF Rounded variant for big numbers. Both scale with --dt, which AppearanceSync reads from the phone text size.</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/typography#Using-custom-fonts" target="_blank" rel="noopener">Typography</a><span class="rid"> · T5</span><q>Minimize the number of typefaces you use, even in a highly customized interface.</q></div>
+  <div class="ct"><a href="img/home-5c5f6f246b.webp" target="_blank"><img src="img/home-39dfb81ed5.webp" alt="" loading="lazy"></a></div></div><div class="crow st-pass">
+  <div class="cn">25</div>
+  <div class="cq"><p>At AX sizes, does the layout stack instead of clipping, with no critical truncation?</p><p class="ev">At AX2 Home stacks Start above More Options, Challenge stacks its stats, and titles and rows wrap instead of clipping. The measure pass found no overflow or truncation.</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/typography#Supporting-Dynamic-Type" target="_blank" rel="noopener">Typography</a><span class="rid"> · T8, L6</span><q>Keep text truncation to a minimum as font size increases.</q></div>
+  <div class="ct"><a href="img/contact-ax2-b78cd22f5e.webp" target="_blank"><img src="img/contact-ax2-2374eebd59.webp" alt="" loading="lazy"></a></div></div><div class="crow st-pass">
+  <div class="cn">26</div>
+  <div class="cq"><p>Is SF Pro tracking applied in the mock-up (17 pt at −0.43 pt, 34 pt at +0.40 pt)?</p><p class="ev">SF tracking is applied per size (17 pt at -0.026 em, about -0.43 pt; 34 pt at +0.012 em, about +0.40 pt).</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/typography#iOS-iPadOS-visionOS-tracking-values" target="_blank" rel="noopener">Typography</a><span class="rid"> · T10</span><q>In a running app, the system font dynamically adjusts tracking at every point size.</q></div>
+  <div class="ct"><a href="img/home-5c5f6f246b.webp" target="_blank"><img src="img/home-39dfb81ed5.webp" alt="" loading="lazy"></a></div></div><h3 class="cgroup">Icons</h3><div class="crow st-owner-override">
+  <div class="cn">27</div>
+  <div class="cq"><p>Are icons SF Symbols (or consistent custom glyphs) matching the adjacent text weight?</p><p class="ev">Icons are JF custom glyphs, not SF Symbols, by your rule, and they match the weight of the text beside them. The leftover circled tick in the Units, Session reminder and Video rows is now the plain tint checkmark.</p></div>
+  <div class="cr">Your rule</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/sf-symbols#Weights-and-scales" target="_blank" rel="noopener">SF Symbols</a><span class="rid"> · I1, I6</span><q>Each of the nine symbol weights — from ultralight to black — corresponds to a weight of the San Francisco system font</q></div>
+  <div class="ct"><a href="img/more-f01650a219.webp" target="_blank"><img src="img/more-ff03b49d1b.webp" alt="" loading="lazy"></a><a href="img/units2-c5a09db85e.webp" target="_blank"><img src="img/units2-7c91fea3f1.webp" alt="" loading="lazy"></a></div></div><div class="crow st-pass">
+  <div class="cn">28</div>
+  <div class="cq"><p>Are common actions using the standard symbols (share `square.and.arrow.up`, delete `trash`, more `ellipsis`, close `xmark`)?</p><p class="ev">Common actions use the standard shapes: share as square-and-arrow-up (Grocery List), more as ellipsis, close as xmark, delete as trash (Remove from Today).</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/icons#Standard-icons" target="_blank" rel="noopener">Icons</a><span class="rid"> · I9</span><q>Whether you use only custom icons or mix custom and system-provided ones, all interface icons in your app need to use a consistent size, level of detail, stroke thickness (or weight), and perspective.</q></div>
+  <div class="ct"><a href="img/f-grocery-2a6e4ad540.webp" target="_blank"><img src="img/f-grocery-a9f5be5b44.webp" alt="" loading="lazy"></a><a href="img/home-5c5f6f246b.webp" target="_blank"><img src="img/home-39dfb81ed5.webp" alt="" loading="lazy"></a></div></div><div class="crow st-pass">
+  <div class="cn">29</div>
+  <div class="cq"><p>Are toolbar symbols unbordered (no circled outlines)?</p><p class="ev">Toolbar symbols are plain glyphs inside the glass group, with no circled outlines. Settings choice rows now use the plain checkmark too.</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/toolbars#Actions" target="_blank" rel="noopener">Toolbars</a><span class="rid"> · I8</span><q>Prefer system-provided symbols without borders.</q></div>
+  <div class="ct"><a href="img/food-scrolled-0e2603f903.webp" target="_blank"><img src="img/food-scrolled-9fd19f8702.webp" alt="" loading="lazy"></a><a href="img/units2-c5a09db85e.webp" target="_blank"><img src="img/units2-7c91fea3f1.webp" alt="" loading="lazy"></a></div></div><h3 class="cgroup">Presentation</h3><div class="crow st-pass">
+  <div class="cn">30</div>
+  <div class="cq"><p>Does every modal have a title, an obvious dismiss and swipe down, with a confirmation if content would be lost?</p><p class="ev">Sheets have a title, the X and swipe-down, and the workout builder confirms before discarding. Fixed this round: the + pop-up&#x27;s X stays sharp above the blur, the mate chat sheet header matches the other sheets, quick-add screens opened from a link close to Food, Progress or Training instead of a blank page, and Report a problem is a proper dark sheet.</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/modality#Best-practices" target="_blank" rel="noopener">Modality</a><span class="rid"> · PR1, PR3, PR9</span><q>Always give people an obvious way to dismiss a modal view.</q></div>
+  <div class="ct"><a href="img/plus-open-5e88af1473.webp" target="_blank"><img src="img/plus-open-68f5643f03.webp" alt="" loading="lazy"></a><a href="img/direct-water-e6a2ee7544.webp" target="_blank"><img src="img/direct-water-230f96f2c5.webp" alt="" loading="lazy"></a></div></div><div class="crow st-partial">
+  <div class="cn">31</div>
+  <div class="cq"><p>Sheet buttons: Cancel leading, Done trailing (inactive until complete), never Cancel, Done and Back together?</p><p class="ev">One small circular X instead of a Cancel button is your rule. After picking a swap the second button now reads Clear, not a second Cancel, and recipe and grocery use the standard grey X. Still open: the food detail sheet (Add Food, then a food) shows Back, Add and the X together.</p></div>
+  <div class="cr">Partly</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/sheets#iOS-iPadOS" target="_blank" rel="noopener">Sheets</a><span class="rid"> · PR5, PR6</span><q>In iOS and iPadOS, for sheets with a single view, the Cancel button belongs on the leading edge of the top toolbar.</q></div>
+  <div class="ct"><a href="img/food-detail-8413474b62.webp" target="_blank"><img src="img/food-detail-2ec5b52206.webp" alt="" loading="lazy"></a><a href="img/f-swap-picked-7a20e19c9f.webp" target="_blank"><img src="img/f-swap-picked-78e97050bc.webp" alt="" loading="lazy"></a></div></div><div class="crow st-pass">
+  <div class="cn">32</div>
+  <div class="cq"><p>Does a resizable sheet show a grabber and sensible detents (medium or large)?</p><p class="ev">Resizable sheets show a grabber and open at medium or large heights (Log Weight at medium, Log Activity and Swap taller).</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/sheets#iOS-iPadOS" target="_blank" rel="noopener">Sheets</a><span class="rid"> · PR7, PR8</span><q>Include a grabber in a resizable sheet.</q></div>
+  <div class="ct"><a href="img/progress-log-weight-35a259459b.webp" target="_blank"><img src="img/progress-log-weight-b4f9b8ec2e.webp" alt="" loading="lazy"></a><a href="img/home-log-activity-595eb6dc9b.webp" target="_blank"><img src="img/home-log-activity-c5660729aa.webp" alt="" loading="lazy"></a></div></div><div class="crow st-pass">
+  <div class="cn">33</div>
+  <div class="cq"><p>Is only one sheet, popover or alert on screen?</p><p class="ev">Each alert, menu or sheet replaces the previous one; no stacked modals were seen in the sheet sweep.</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/modality#Best-practices" target="_blank" rel="noopener">Modality</a><span class="rid"> · PR2, PR10</span><q>Let people dismiss a modal view before presenting another one.</q></div>
+  <div class="ct"><a href="img/t-finish-confirm-4f7abc5c46.webp" target="_blank"><img src="img/t-finish-confirm-9fc3443f07.webp" alt="" loading="lazy"></a><a href="img/f-eaten-confirm-0f68890386.webp" target="_blank"><img src="img/f-eaten-confirm-9fbd7b2908.webp" alt="" loading="lazy"></a></div></div><div class="crow st-pass">
+  <div class="cn">34</div>
+  <div class="cq"><p>Is the alert title specific (not &quot;Error&quot;), with at most 3 buttons, verb titles, &quot;Cancel&quot; for cancel, and default trailing?</p><p class="ev">Alerts are specific (&quot;Finish workout?&quot;, &quot;Unsend this message?&quot;) with a verb button and Cancel. Community Unsend and Remove member now use the app&#x27;s own confirmation, with the red verb button, instead of the browser&#x27;s OK box.</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/alerts#Content" target="_blank" rel="noopener">Alerts</a><span class="rid"> · PR13, PR14, PR15</span><q>Write a title that clearly and succinctly describes the situation.</q></div>
+  <div class="ct"><a href="img/t-finish-confirm-4f7abc5c46.webp" target="_blank"><img src="img/t-finish-confirm-9fc3443f07.webp" alt="" loading="lazy"></a><a href="img/room-unsend-59e365aded.webp" target="_blank"><img src="img/room-unsend-a3b441ff4c.webp" alt="" loading="lazy"></a></div></div><div class="crow st-pass">
+  <div class="cn">35</div>
+  <div class="cq"><p>Are choices about a just-started action in an action sheet (destructive top, Cancel bottom)?</p><p class="ev">The confirmation dialog springs from its control, with the destructive &quot;Remove from Today&quot; in red at the top and Cancel at the bottom.</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/action-sheets#Best-practices" target="_blank" rel="noopener">Action sheets</a><span class="rid"> · PR18, PR19</span><q>Use an action sheet — not an alert — to offer choices related to an intentional action.</q></div>
+  <div class="ct"><a href="img/f-eaten-confirm-0f68890386.webp" target="_blank"><img src="img/f-eaten-confirm-9fbd7b2908.webp" alt="" loading="lazy"></a></div></div><div class="crow st-pass">
+  <div class="cn">36</div>
+  <div class="cq"><p>Are menu items verbs in title case with an ellipsis where more input follows, and icons for all or none in a group?</p><p class="ev">Menu items are Title Case verbs with an ellipsis where more input follows (&quot;Swap Recipe…&quot;, &quot;Manage Program…&quot;), and every item in a menu has an icon.</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/menus#Labels" target="_blank" rel="noopener">Menus</a><span class="rid"> · PR20, PR21</span><q>In general, label a menu item that initiates an action using a verb or verb phrase that describes the action, such as View, Close, or Select.</q></div>
+  <div class="ct"><a href="img/food-meal-menu-eba9b42189.webp" target="_blank"><img src="img/food-meal-menu-3059b73f82.webp" alt="" loading="lazy"></a><a href="img/home-menu-c3251c5545.webp" target="_blank"><img src="img/home-menu-784349de2f.webp" alt="" loading="lazy"></a></div></div><div class="crow st-pass">
+  <div class="cn">37</div>
+  <div class="cq"><p>Are context-menu destructive items last and red, and duplicated in the main UI?</p><p class="ev">The only destructive menu item (&quot;Remove from Today&quot;) comes last after a separator, in red, and is also reachable by tapping Eaten in the card. The app has no long-press context menus.</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/context-menus#Best-practices" target="_blank" rel="noopener">Context menus</a><span class="rid"> · PR24</span><q>If you need to include potentially destructive items in your context menu — such as Delete or Remove — list them at the end of the menu and identify them as destructive</q></div>
+  <div class="ct"><a href="img/f-eaten-confirm-0f68890386.webp" target="_blank"><img src="img/f-eaten-confirm-9fbd7b2908.webp" alt="" loading="lazy"></a></div></div><div class="crow st-pass">
+  <div class="cn">38</div>
+  <div class="cq"><p>Is there no popover on an iPhone-width layout?</p><p class="ev">No popovers are used at iPhone width. Choices use anchored pull-down menus, sheets and confirmation dialogs.</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/popovers#iOS-iPadOS" target="_blank" rel="noopener">Popovers</a><span class="rid"> · PR27</span><q>Avoid displaying popovers in compact views.</q></div>
+  <div class="ct"><a href="img/food-meal-menu-eba9b42189.webp" target="_blank"><img src="img/food-meal-menu-3059b73f82.webp" alt="" loading="lazy"></a></div></div><h3 class="cgroup">Controls</h3><div class="crow st-partial">
+  <div class="cn">39</div>
+  <div class="cq"><p>Is every tappable target at least 44x44 pt (and never below 28x28 pt), with enough spacing?</p><p class="ev">Almost every control now has a 44 pt hit area, counting invisible padding: map zoom, Find me, Clue, All, No thanks and the map link, and the JFI close (32 pt circle, full 44 pt hit area). A fresh hit sweep of 18 screens found a few that are still 2 to 10 pt short, all well above Apple&#x27;s 28 pt floor: the Home bell and photo buttons (42 and 40 pt wide), the map&#x27;s collapse button (34 pt wide), the bottom edge of Search this area, and the chat dictate button (38 pt, its right edge meets Send). The leaderboard&#x27;s segmented control is the standard 32 pt iOS height.</p></div>
+  <div class="cr">Partly</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/buttons#Best-practices" target="_blank" rel="noopener">Buttons</a><span class="rid"> · K1, A1, K8</span><q>As a general rule, a button needs a hit region of at least 44x44 pt</q></div>
+  <div class="ct"><a href="img/map-a5b271f478.webp" target="_blank"><img src="img/map-c422170083.webp" alt="" loading="lazy"></a><a href="img/jfi-open-1f4b636d22.webp" target="_blank"><img src="img/jfi-open-3e2fa41744.webp" alt="" loading="lazy"></a></div></div><div class="crow st-pass">
+  <div class="cn">40</div>
+  <div class="cq"><p>Do custom buttons have a press state?</p><p class="ev">Custom buttons use the shared .pressable press state, and menu rows highlight on press.</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/buttons#Best-practices" target="_blank" rel="noopener">Buttons</a><span class="rid"> · K2</span><q>Always include a press state for a custom button.</q></div>
+  <div class="ct"><a href="img/home-5c5f6f246b.webp" target="_blank"><img src="img/home-39dfb81ed5.webp" alt="" loading="lazy"></a></div></div><div class="crow st-pass">
+  <div class="cn">41</div>
+  <div class="cq"><p>Are there at most 1 or 2 prominent buttons per view, distinguished by style not size?</p><p class="ev">Each view has one prominent filled button (Start, Save, Log It). Repeated Mark Eaten buttons use the tinted style, not prominent.</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/buttons#Style" target="_blank" rel="noopener">Buttons</a><span class="rid"> · K3, K4</span><q>Use style — not size — to visually distinguish the preferred choice among multiple options.</q></div>
+  <div class="ct"><a href="img/home-5c5f6f246b.webp" target="_blank"><img src="img/home-39dfb81ed5.webp" alt="" loading="lazy"></a><a href="img/food-scrolled-0e2603f903.webp" target="_blank"><img src="img/food-scrolled-9fd19f8702.webp" alt="" loading="lazy"></a></div></div><div class="crow st-pass">
+  <div class="cn">42</div>
+  <div class="cq"><p>Is the destructive action never the primary or prominent button?</p><p class="ev">Destructive actions are red text on plain fill in confirmations, never the prominent filled button.</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/buttons#Role" target="_blank" rel="noopener">Buttons</a><span class="rid"> · K6</span><q>Don’t assign the primary role to a button that performs a destructive action, even if that action is the most likely choice.</q></div>
+  <div class="ct"><a href="img/f-eaten-confirm-0f68890386.webp" target="_blank"><img src="img/f-eaten-confirm-9fbd7b2908.webp" alt="" loading="lazy"></a><a href="img/t-finish-confirm-4f7abc5c46.webp" target="_blank"><img src="img/t-finish-confirm-9fc3443f07.webp" alt="" loading="lazy"></a></div></div><div class="crow st-pass">
+  <div class="cn">43</div>
+  <div class="cq"><p>Are switches only in list rows (toggle-buttons elsewhere)?</p><p class="ev">Switches only appear as trailing controls in list rows (notification settings, Track my progress, Hide me from the boards).</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/toggles#iOS-iPadOS" target="_blank" rel="noopener">Toggles</a><span class="rid"> · K9</span><q>Use the switch toggle style only in a list row.</q></div>
+  <div class="ct"><a href="img/settings-notifications-3e6387bcd0.webp" target="_blank"><img src="img/settings-notifications-db6814e3eb.webp" alt="" loading="lazy"></a><a href="img/challenge-goal-5bb44ca08a.webp" target="_blank"><img src="img/challenge-goal-d3cba0d9d5.webp" alt="" loading="lazy"></a></div></div><div class="crow st-pass">
+  <div class="cn">44</div>
+  <div class="cq"><p>Do segmented controls have at most 5 equal segments, all text or all icons?</p><p class="ev">Segmented controls have 3 to 5 equal text segments (1M/3M/6M/1Y/All; Recent/Recipes/Saved Days; Beginner/Intermediate/Advanced).</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/segmented-controls#Best-practices" target="_blank" rel="noopener">Segmented controls</a><span class="rid"> · K11</span><q>Aim for no more than about five to seven segments in a wide interface and no more than about five segments on iPhone.</q></div>
+  <div class="ct"><a href="img/progress-870260306d.webp" target="_blank"><img src="img/progress-ad499b40c0.webp" alt="" loading="lazy"></a><a href="img/f-addfood-f893b2cb3d.webp" target="_blank"><img src="img/f-addfood-39ba72d24c.webp" alt="" loading="lazy"></a></div></div><div class="crow st-pass">
+  <div class="cn">45</div>
+  <div class="cq"><p>Do text fields have visible labels, the right keyboard and a clear button?</p><p class="ev">Keyboards are typed to the field (email, number, tel). Food, activity and recipe swap searches all have the iOS clear button, and the bug report field has a visible &quot;Describe the problem&quot; label.</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/text-fields#Best-practices" target="_blank" rel="noopener">Text fields</a><span class="rid"> · K16, K17, K18</span><q>Because placeholder text disappears when people start typing, it can also be useful to include a separate label describing the field to remind people of its purpose.</q></div>
+  <div class="ct"><a href="img/activity-typed-light-4647dc5625.webp" target="_blank"><img src="img/activity-typed-light-816a6d8b74.webp" alt="" loading="lazy"></a><a href="img/bug-light-7091b5447e.webp" target="_blank"><img src="img/bug-light-7a23a04000.webp" alt="" loading="lazy"></a></div></div><div class="crow st-pass">
+  <div class="cn">46</div>
+  <div class="cq"><p>Is progress determinate where possible, and is there no blank screen while loading?</p><p class="ev">The program build waits on a standard spinner; the wait has no known length, so a determinate bar isn&#x27;t possible. Quick-add screens opened from a direct link now close to their parent screen instead of a blank page.</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/progress-indicators#Best-practices" target="_blank" rel="noopener">Progress indicators</a><span class="rid"> · K20, F4</span><q>When possible, use a determinate progress indicator.</q></div>
+  <div class="ct"><a href="img/setup-path-257b3066d7.webp" target="_blank"><img src="img/setup-path-e798092b68.webp" alt="" loading="lazy"></a><a href="img/direct-water-e6a2ee7544.webp" target="_blank"><img src="img/direct-water-230f96f2c5.webp" alt="" loading="lazy"></a></div></div><h3 class="cgroup">Lists and charts</h3><div class="crow st-pass">
+  <div class="cn">47</div>
+  <div class="cq"><p>Do drill-down rows use the chevron, with the info button only for info?</p><p class="ev">Drill-down rows end in the chevron; no info buttons are used for navigation.</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/lists-and-tables#iOS-iPadOS-visionOS" target="_blank" rel="noopener">Lists and tables</a><span class="rid"> · LT5</span><q>If you need to let people drill into a list or table row’s subviews, use a disclosure indicator accessory control.</q></div>
+  <div class="ct"><a href="img/more-f01650a219.webp" target="_blank"><img src="img/more-ff03b49d1b.webp" alt="" loading="lazy"></a><a href="img/challenge-scrolled-98e5b746b2.webp" target="_blank"><img src="img/challenge-scrolled-ed1fba0a75.webp" alt="" loading="lazy"></a></div></div><div class="crow st-pass">
+  <div class="cn">48</div>
+  <div class="cq"><p>Do list rows grow with text size instead of clipping?</p><p class="ev">At xxxLarge and AX2, list rows grow and titles and subtitles wrap instead of clipping.</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/layout#Adaptability" target="_blank" rel="noopener">Collections</a><span class="rid"> · LT9</span><q>Support Dynamic Type by adjusting your layout to accommodate text at larger sizes.</q></div>
+  <div class="ct"><a href="img/contact-ax2-b78cd22f5e.webp" target="_blank"><img src="img/contact-ax2-2374eebd59.webp" alt="" loading="lazy"></a><a href="img/contact-xxxl-54ef021052.webp" target="_blank"><img src="img/contact-xxxl-1d17b30260.webp" alt="" loading="lazy"></a></div></div><div class="crow st-pass">
+  <div class="cn">49</div>
+  <div class="cq"><p>Does each chart have a title or summary stating its message, and is data readable without interaction?</p><p class="ev">Charts carry a title and a plain-English summary (&quot;Up 0.2 kg since your goal started, 11 Sep. A normal day-to-day swing.&quot;, &quot;4 days counted. Best day 11,661 steps.&quot;) and read without interaction. Progress now says &quot;since your goal started&quot;, so it no longer seems to contradict Body weight.</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/charts#Descriptive-content" target="_blank" rel="noopener">Charts</a><span class="rid"> · CH4, CH6</span><q>Summarize the main message of your chart to help make it approachable and useful for everyone.</q></div>
+  <div class="ct"><a href="img/progress-065f80a53b.webp" target="_blank"><img src="img/progress-e3f46ca767.webp" alt="" loading="lazy"></a><a href="img/p-metric-steps-7ae44dbb04.webp" target="_blank"><img src="img/p-metric-steps-afda568374.webp" alt="" loading="lazy"></a></div></div><div class="crow st-pass">
+  <div class="cn">50</div>
+  <div class="cq"><p>Do bar charts start at zero, with familiar tick steps?</p><p class="ev">The steps chart starts at 0 with 0/5k/10k/15k ticks. The weight line chart uses a dynamic range with 0.5 kg steps, which is right for a line chart.</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/charts#Axes" target="_blank" rel="noopener">Charts</a><span class="rid"> · CH3</span><q>For example, bar charts can work well when you use zero for the lower bound of the Y axis</q></div>
+  <div class="ct"><a href="img/p-metric-steps-7ae44dbb04.webp" target="_blank"><img src="img/p-metric-steps-afda568374.webp" alt="" loading="lazy"></a><a href="img/body-weight-e43807fa4f.webp" target="_blank"><img src="img/body-weight-63a2cc1b2a.webp" alt="" loading="lazy"></a></div></div><div class="crow st-pass">
+  <div class="cn">51</div>
+  <div class="cq"><p>Does each chart series differ by more than colour?</p><p class="ev">Charts are single-series; multi-part values like the macros are labelled with text (Protein, Carbs, Fat), not colour alone.</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/charts#Color" target="_blank" rel="noopener">Charts</a><span class="rid"> · CH7</span><q>Avoid relying solely on color to differentiate between different pieces of data or communicate essential information in a chart.</q></div>
+  <div class="ct"><a href="img/progress-870260306d.webp" target="_blank"><img src="img/progress-ad499b40c0.webp" alt="" loading="lazy"></a><a href="img/p-metric-steps-7ae44dbb04.webp" target="_blank"><img src="img/p-metric-steps-afda568374.webp" alt="" loading="lazy"></a></div></div><h3 class="cgroup">Feedback, motion, writing</h3><div class="crow st-pass">
+  <div class="cn">52</div>
+  <div class="cq"><p>Does an empty state have a next-step button?</p><p class="ev">Empty states offer the next step: Sleep has Log Sleep, Add Food lists four ways to log, and No session credits now offers Message your trainer.</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/writing#Best-practices" target="_blank" rel="noopener">Writing</a><span class="rid"> · F9</span><q>Provide clear next steps on any blank screens.</q></div>
+  <div class="ct"><a href="img/credits2-1c1518ae2d.webp" target="_blank"><img src="img/credits2-19d29b37ca.webp" alt="" loading="lazy"></a><a href="img/p-metric-sleep-4b5b952160.webp" target="_blank"><img src="img/p-metric-sleep-330e55e19e.webp" alt="" loading="lazy"></a></div></div><div class="crow st-pass">
+  <div class="cn">53</div>
+  <div class="cq"><p>Are errors next to the problem, blame-free and fixable?</p><p class="ev">Form errors render in red next to the field that failed (role=alert footers in profile, coach settings and appointment sync) and say how to fix it. This was checked in code only; no error state was captured in the stills.</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/writing#Best-practices" target="_blank" rel="noopener">Writing</a><span class="rid"> · F10</span><q>When an error message is necessary, display it as close to the problem as possible, avoid blame, and be clear about what someone can do to fix it.</q></div>
+  <div class="ct"><a href="img/home-5c5f6f246b.webp" target="_blank"><img src="img/home-39dfb81ed5.webp" alt="" loading="lazy"></a></div></div><div class="crow st-fail">
+  <div class="cn">54</div>
+  <div class="cq"><p>Does the launch screen match the first screen, with no logo or text?</p><p class="ev">The launch screen is the JF logo on navy (#0c0f1f), while the first screen is the light Today screen; Apple asks for a near copy of the first screen with no logo. It lives in the native iPhone shell, not this web build, so the fix ships with the next native release, not tonight.</p></div>
+  <div class="cr">No</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/launching#Launch-screens" target="_blank" rel="noopener">Launching</a><span class="rid"> · F5</span><q>Design a launch screen that’s nearly identical to the first screen of your app or game.</q></div>
+  <div class="ct"><a href="img/home-5c5f6f246b.webp" target="_blank"><img src="img/home-39dfb81ed5.webp" alt="" loading="lazy"></a></div></div><div class="crow st-pass">
+  <div class="cn">55</div>
+  <div class="cq"><p>Is onboarding skippable, short and interactive?</p><p class="ev">Setup has a &quot;Not now&quot; at top right on every step, is a short handful of questions, and is interactive (JFI asks, taps choose).</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/onboarding" target="_blank" rel="noopener">Onboarding</a><span class="rid"> · F8</span><q>Ideally, people can understand your app or game simply by experiencing it, but if onboarding is necessary, design a flow that’s fast, fun, and optional.</q></div>
+  <div class="ct"><a href="img/setup-welcome-2e0be616d4.webp" target="_blank"><img src="img/setup-welcome-1289a2c2a9.webp" alt="" loading="lazy"></a><a href="img/setup-path-257b3066d7.webp" target="_blank"><img src="img/setup-path-e798092b68.webp" alt="" loading="lazy"></a></div></div><div class="crow st-pass">
+  <div class="cn">56</div>
+  <div class="cq"><p>Is motion purposeful, cancellable, and replaced by fades under Reduce Motion?</p><p class="ev">With Reduce Motion emulated, nav bar transitions are off, menus fade instead of scaling, and the chapter art and JFmoji avatar animations stop (running on Challenge without it, none with it). The JFI orb skips its moves.</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/motion#Best-practices" target="_blank" rel="noopener">Motion</a><span class="rid"> · M1, M4</span><q>Add motion purposefully, supporting the experience without overshadowing it.</q></div>
+  <div class="ct"><a href="img/home-rm-9519cb2c1d.webp" target="_blank"><img src="img/home-rm-0a4d73ec66.webp" alt="" loading="lazy"></a><a href="img/challenge-rm-9f8a445727.webp" target="_blank"><img src="img/challenge-rm-8b45635ab1.webp" alt="" loading="lazy"></a></div></div><div class="crow st-pass">
+  <div class="cn">57</div>
+  <div class="cq"><p>Are haptics used with their standard meanings (success, warning, error, impact, selection)?</p><p class="ev">The weight wheel uses selection haptics and the tab bar uses a light impact, each with visual feedback. Settings &gt; Haptics turns them off.</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/playing-haptics#Best-practices" target="_blank" rel="noopener">Playing haptics</a><span class="rid"> · M6</span><q>Use system-provided haptic patterns according to their documented meanings.</q></div>
+  <div class="ct"><a href="img/haptics-7815ba8a3f.webp" target="_blank"><img src="img/haptics-a3454ce53a.webp" alt="" loading="lazy"></a></div></div><div class="crow st-partial">
+  <div class="cn">58</div>
+  <div class="cq"><p>Are buttons verbs, with no &quot;we&quot;, no &quot;click&quot;, and consistent Continue or Next wording?</p><p class="ev">Buttons are verbs with no &quot;click&quot;. But about 15 strings still use &quot;we&quot;/&quot;us&quot; (&quot;We couldn&#x27;t load your training&quot;, &quot;attached for us&quot;), and multistep flows mix Continue (setup) with Next (check-in).</p></div>
+  <div class="cr">Partly</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/writing#Best-practices" target="_blank" rel="noopener">Writing</a><span class="rid"> · W2, W4, W5</span><q>When labeling buttons and links, it’s almost always best to use a verb.</q></div>
+  <div class="ct"><a href="img/bug-82c19af79c.webp" target="_blank"><img src="img/bug-77f4e7d5d7.webp" alt="" loading="lazy"></a><a href="img/checkin-07b7a36a70.webp" target="_blank"><img src="img/checkin-bd71a67495.webp" alt="" loading="lazy"></a></div></div><div class="crow st-partial">
+  <div class="cn">59</div>
+  <div class="cq"><p>Is capitalisation consistent (title case for buttons and menus, sentence case for messages)?</p><p class="ev">Menus and most buttons are Title Case (Mark Eaten, Show Details, Start Session). A few buttons are still sentence case: &quot;Add to my calendar&quot; (Community), &quot;Message your trainer&quot; (Session credits), &quot;Log current progress&quot; (goal) and &quot;Allow notifications&quot;. Not changed this round.</p></div>
+  <div class="cr">Partly</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/buttons#Content" target="_blank" rel="noopener">Buttons</a><span class="rid"> · W3</span><q>To use text, write a few words that succinctly describe what the button does.</q></div>
+  <div class="ct"><a href="img/community-message2-b7b51e39ec.webp" target="_blank"><img src="img/community-message2-ba5da61c24.webp" alt="" loading="lazy"></a><a href="img/credits2-1c1518ae2d.webp" target="_blank"><img src="img/credits2-19d29b37ca.webp" alt="" loading="lazy"></a></div></div><h3 class="cgroup">Accessibility and Dark Mode</h3><div class="crow st-pass">
+  <div class="cn">60</div>
+  <div class="cq"><p>Is text contrast at least 4.5:1 (3:1 for 18 pt+ or bold) in light and dark?</p><p class="ev">A fresh contrast sweep of 28 screens in light and dark on the finished build found no enabled text under 4.5:1. Field placeholders are now 4.6 to 6.9:1; sign-in&#x27;s Trainer login text reads in dark; builder step labels, water buttons and map labels pass. The only flags left are disabled buttons (exempt), the grey monogram avatar (the same look as iOS Contacts) and map labels measured without their white halo.</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/accessibility#Vision" target="_blank" rel="noopener">Accessibility</a><span class="rid"> · A2</span><q>To ensure all information in your app is legible, it’s important that there’s enough contrast between foreground text and icons and background colors.</q></div>
+  <div class="ct"><a href="img/add-food-final-4f559c21a1.webp" target="_blank"><img src="img/add-food-final-169d66fb54.webp" alt="" loading="lazy"></a><a href="img/login-dark-desk-33bdc53638.webp" target="_blank"><img src="img/login-dark-desk-17dd753ed5.webp" alt="" loading="lazy"></a></div></div><div class="crow st-pass">
+  <div class="cn">61</div>
+  <div class="cq"><p>Does every icon-only control have a VoiceOver label, with decorative images hidden?</p><p class="ev">A DOM sweep of 12 main routes found no button or link without an accessible name.</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/voiceover" target="_blank" rel="noopener">VoiceOver</a><span class="rid"> · A5</span><q>Provide alternative labels for all key interface elements.</q></div>
+  <div class="ct"><a href="img/home-5c5f6f246b.webp" target="_blank"><img src="img/home-39dfb81ed5.webp" alt="" loading="lazy"></a></div></div><div class="crow st-pass">
+  <div class="cn">62</div>
+  <div class="cq"><p>Does every gesture have a button alternative?</p><p class="ev">Swipe-down sheets also have the X, tab-bar drag selection has plain taps, and the weight wheel also takes taps and arrow keys (ArrowUp now raises the value).</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/accessibility#Mobility" target="_blank" rel="noopener">Accessibility</a><span class="rid"> · A6</span><q>Make sure your UI’s core functionality is accessible through more than one type of physical interaction.</q></div>
+  <div class="ct"><a href="img/progress-log-weight-35a259459b.webp" target="_blank"><img src="img/progress-log-weight-b4f9b8ec2e.webp" alt="" loading="lazy"></a><a href="img/wheel-after-keys-479a8acd1b.webp" target="_blank"><img src="img/wheel-after-keys-75716c76cf.webp" alt="" loading="lazy"></a></div></div><div class="crow st-pass">
+  <div class="cn">63</div>
+  <div class="cq"><p>Does the design follow the system appearance, with no in-app light/dark switch?</p><p class="ev">Appearance follows the phone through prefers-color-scheme, with no in-app switch (owner decision: Dark Mode follows the phone).</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/dark-mode#Best-practices" target="_blank" rel="noopener">Dark Mode</a><span class="rid"> · D1</span><q>Avoid offering an app-specific appearance setting.</q></div>
+  <div class="ct"><a href="img/home-5c5f6f246b.webp" target="_blank"><img src="img/home-39dfb81ed5.webp" alt="" loading="lazy"></a><a href="img/home-menu-99ad22198d.webp" target="_blank"><img src="img/home-menu-bc5483d19e.webp" alt="" loading="lazy"></a></div></div><div class="crow st-pass">
+  <div class="cn">64</div>
+  <div class="cq"><p>Do sheets and popovers use elevated backgrounds in Dark Mode (system backgrounds)?</p><p class="ev">Dark sheets and menus use the elevated #1C1C1E/#2C2C2E set with lighter cells, including Report a problem, which was pure black before.</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/dark-mode#iOS-iPadOS" target="_blank" rel="noopener">Dark Mode</a><span class="rid"> · D4</span><q>Dark Mode is dynamic, which means that the background color automatically changes from base to elevated when an interface is in the foreground, such as a popover or modal sheet.</q></div>
+  <div class="ct"><a href="img/progress-log-weight-cad70cca59.webp" target="_blank"><img src="img/progress-log-weight-cc869fd5e2.webp" alt="" loading="lazy"></a><a href="img/bug2-e3a267c637.webp" target="_blank"><img src="img/bug2-1bf33d09d2.webp" alt="" loading="lazy"></a></div></div><div class="crow st-pass">
+  <div class="cn">65</div>
+  <div class="cq"><p>Does it still read with Reduce Transparency and Increase Contrast on?</p><p class="ev">Increase Contrast works in light and dark. With Reduce Transparency the tab bar, + and other blurred surfaces go solid in both appearances; dark was see-through before and now measures rgb(28,28,30) with no blur.</p></div>
+  <div class="cr">Yes</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/materials#Liquid-Glass" target="_blank" rel="noopener">Materials</a><span class="rid"> · G12, D3</span><q>Consider contrast and visual separation when choosing a material to combine with blur and vibrancy effects.</q></div>
+  <div class="ct"><a href="img/food-afterdarkrt-9cbe9b1c3b.webp" target="_blank"><img src="img/food-afterdarkrt-aafa87afb5.webp" alt="" loading="lazy"></a><a href="img/home-rt-dark-265adc49fa.webp" target="_blank"><img src="img/home-rt-dark-de61d6e7b2.webp" alt="" loading="lazy"></a></div></div><h3 class="cgroup">System experiences and privacy</h3><div class="crow st-n-a">
+  <div class="cn">66</div>
+  <div class="cq"><p>Do widgets use 16 pt margins, text of 11 pt or more, deep links, and work in tinted, clear and vibrant modes?</p><p class="ev">JF Coach has no widgets; the Mia widget is a separate app and not part of this build.</p></div>
+  <div class="cr">Not used</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/widgets#Choosing-margins-and-padding" target="_blank" rel="noopener">Widgets</a><span class="rid"> · S2, S3, S4</span><q>Use the standard margin width for widgets — 16 points for most widgets — to avoid crowding their edges and creating a cluttered appearance.</q></div>
+  <div class="ct"></div></div><div class="crow st-n-a">
+  <div class="cn">67</div>
+  <div class="cq"><p>Does the Live Activity use heavy, large text, 14 pt Lock Screen margins and a compact layout hugging the camera?</p><p class="ev">JF Coach has no Live Activities.</p></div>
+  <div class="cr">Not used</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/live-activities#Best-practices" target="_blank" rel="noopener">Live Activities</a><span class="rid"> · S10, S11</span><q>Use large, heavier-weight text — a medium weight or higher.</q></div>
+  <div class="ct"></div></div><div class="crow st-n-a">
+  <div class="cn">68</div>
+  <div class="cq"><p>Are Activity rings unmodified, on black, only for Move, Exercise and Stand?</p><p class="ev">The app shows no Apple Activity rings. Its single health-score ring is its own design, not a Move, Exercise or Stand ring.</p></div>
+  <div class="cr">Not used</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/activity-rings#Best-practices" target="_blank" rel="noopener">Activity rings</a><span class="rid"> · AR1, AR2</span><q>Use Activity rings only to show Move, Exercise, and Stand information.</q></div>
+  <div class="ct"></div></div><div class="crow st-partial">
+  <div class="cn">69</div>
+  <div class="cq"><p>Are permissions asked in context, with a specific one-sentence purpose string?</p><p class="ev">Health is asked in setup with a clear benefit, which PV1 allows. But the full-screen notification opt-in appears at app open rather than when a reminder is first needed. The calendar purpose string is two sentences, and the Info.plist strings are not in this repo to check.</p></div>
+  <div class="cr">Partly</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/privacy#Requesting-permission" target="_blank" rel="noopener">Privacy</a><span class="rid"> · PV1, PV2</span><q>Request permission only when your app clearly needs access to the data or resource.</q></div>
+  <div class="ct"><a href="img/setup-health-step-03880b7272.webp" target="_blank"><img src="img/setup-health-step-cbe4e9e116.webp" alt="" loading="lazy"></a></div></div><div class="crow st-owner-override">
+  <div class="cn">70</div>
+  <div class="cq"><p>Does any pre-permission screen have exactly one &quot;Continue&quot; or &quot;Next&quot; button?</p><p class="ev">Not met, on purpose. Apple wants one button on a pre-permission screen. The notification screen has &quot;Enable notifications&quot; plus &quot;Skip for now&quot;, and the Health step has Continue plus &quot;Not now&quot;. Your rule is that no one is forced into a permission, so the skip stays.</p></div>
+  <div class="cr">Your rule</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/privacy#Pre-alert-screens-windows-or-views" target="_blank" rel="noopener">Privacy</a><span class="rid"> · PV3</span><q>Include only one button and make it clear that it opens the system alert.</q></div>
+  <div class="ct"><a href="img/setup-health-13f5c1a5b0.webp" target="_blank"><img src="img/setup-health-8752755395.webp" alt="" loading="lazy"></a><a href="img/setup-health-step-03880b7272.webp" target="_blank"><img src="img/setup-health-step-cbe4e9e116.webp" alt="" loading="lazy"></a></div></div><div class="crow st-partial">
+  <div class="cn">71</div>
+  <div class="cq"><p>Does the app icon have dark, clear and tinted variants, and no text, photos or fake effects?</p><p class="ev">Only one icon source is supplied (JF lettermark on navy), so iOS generates the dark, clear and tinted variants itself. The lettermark is the brand mark, with no photos or fake effects.</p></div>
+  <div class="cr">Partly</div>
+  <div class="ca"><a href="https://developer.apple.com/design/human-interface-guidelines/app-icons#Appearances" target="_blank" rel="noopener">App icons</a><span class="rid"> · AI2, AI3</span><q>You can design app icon variants for every appearance variant, and the system automatically generates variants you don’t provide.</q></div>
+  <div class="ct"></div></div></div>
+</div></section>
+
+<section id="rules"><div class="wrap"><div class="dark">
+  <h2>Where we differ from Apple, on purpose</h2>
+  <p class="sub">These are your standing rules. Each one is a deliberate choice, not a miss.</p>
+  <ol class="dec">
+    <li><b>One small round X at the top right</b><span>Apple's sheets put Cancel on the left and Done on the right. Every JF Coach sheet instead has one small round X at the top right, so closing always works the same way. Apple does use the X symbol for Close, so it still feels at home. <a href="https://developer.apple.com/design/human-interface-guidelines/sheets" target="_blank" rel="noopener">Apple: Sheets</a></span></li>
+    <li><b>The round + in the tab bar</b><span>Apple says tab bar buttons should only switch screens, never do something, and a + usually means "add". The round + stays at the bottom right and opens the JFI pop-up, as you decided. <a href="https://developer.apple.com/design/human-interface-guidelines/tab-bars" target="_blank" rel="noopener">Apple: Tab bars</a></span></li>
+    <li><b>JF's own icons</b><span>Apple prefers its SF Symbols icons, but they are licensed for Apple devices only and JF Coach also ships on Android. JF's own icons are used everywhere, which Apple allows as long as they are consistent. <a href="https://developer.apple.com/design/human-interface-guidelines/sf-symbols" target="_blank" rel="noopener">Apple: SF Symbols</a></span></li>
+    <li><b>A skip on the permission screens</b><span>Apple wants the screen before a permission request to have one button that leads to the iPhone's own prompt. JF Coach keeps "Skip for now" on the notification screen and "Not now" on the Health step, so no one is forced into a permission. <a href="https://developer.apple.com/design/human-interface-guidelines/privacy#Pre-alert-screens-windows-or-views" target="_blank" rel="noopener">Apple: Privacy</a></span></li>
+    <li><b>No Delete Account button</b><span>Apple asks apps that create accounts to let people delete them inside the app, and App Review can ask about it. You've decided not to add it for now, so it's noted here. <a href="https://developer.apple.com/design/human-interface-guidelines/managing-accounts" target="_blank" rel="noopener">Apple: Managing accounts</a></span></li>
+  </ol>
+</div></div></section>
+
+<section id="android"><div class="wrap andr">
+  <div>
+    <h2>Android</h2>
+    <p class="sub">Android gets the same design. It's one app on both stores, so nothing had to be built twice.</p>
+    <p class="sub">The only visible difference is the font: iPhones show Apple's SF Pro, Android phones show Google's Roboto. No Apple fonts or Apple icons are shipped in the app, so Android is fully allowed. Dark Mode and Larger Text follow the Android phone's settings the same way.</p>
+  </div>
+  <div class="strip"><figure class="aft"><img src="img/home-e48a1cf120.webp" alt="Home, Roboto" loading="lazy"><figcaption>Home, Roboto</figcaption></figure><figure class="aft"><img src="img/training-cec42fef28.webp" alt="Training, Roboto" loading="lazy"><figcaption>Training, Roboto</figcaption></figure><figure class="aft"><img src="img/food-230e1d0949.webp" alt="Food, Roboto" loading="lazy"><figcaption>Food, Roboto</figcaption></figure></div>
+</div></section>
+
+<div class="divider"></div>
+
+<section id="open"><div class="wrap">
+  <h2>Open items and small things left</h2>
+  <ul class="open"><li><b>Three weight edge cases</b><span>The final Sol pass found three rare cases to tidy up after launch; none is a blocker and none changes the weight saved on the server. Switching account inside the app while a weight save is still sending can show the old account&#x27;s number on that phone. A re-weigh saved just before the phone goes offline and reloads shows the old number until the next refresh. Opening Progress from an outside link on the measurements path and tapping X can go back to the outside page.</span></li><li><b>Launch screen</b><span>The launch screen is the JF logo on navy, but the first screen is the light Today screen. Apple wants them to look almost the same. This lives in the native iPhone shell, so it ships with the next native release, not tonight.</span></li><li><b>Food detail sheet</b><span>After you pick a food in Add Food, the sheet shows Back, Add and the X at the same time. Apple wants one way out plus Done.</span></li><li><b>A few small taps</b><span>The Home bell and photo buttons, the map&#x27;s collapse button, the bottom edge of Search this area and the chat microphone are 2 to 10 points short of Apple&#x27;s 44. All are well above Apple&#x27;s 28-point minimum.</span></li><li><b>Section colours in high contrast</b><span>Increase Contrast darkens the grey text and lines, but the section colours (Training orange, Food green and the rest) have no stronger version yet.</span></li><li><b>Wording</b><span>About 15 messages still say &quot;we&quot; or &quot;us&quot;, check-in says Next where setup says Continue, and a few buttons are sentence case (&quot;Add to my calendar&quot;, &quot;Message your trainer&quot;).</span></li><li><b>When notifications are asked</b><span>The notification screen appears when the app opens, not when a reminder is first needed, which is when Apple suggests asking.</span></li><li><b>App icon variants</b><span>Only one app icon is supplied, so iOS makes the dark, clear and tinted versions itself. Separate versions are a job for the App Store build.</span></li><li><b>Not in this round</b><span>The Live Activity (rest timer on the Lock Screen), the Home Screen widget and Sign in with Apple were in the mock-up but need native iPhone code or server work. They are not part of the 1 October launch.</span></li><li><b>Unread marker on the + button</b><span>One older test is waiting on your call: should the + show a small, still unread marker when a message comes in? (No pulsing dots either way.)</span></li></ul>
+</div></section>
+
+<footer><div class="wrap">Sample data only ("Alex Sample", mates "Sam" and "Taylor"); no real clients were used. "Now" screenshots are the live app today (launch branch gab/0928); "New" screenshots are the built redesign (branch hig/ios26) on Workbench at iPhone size. Apple's guidelines: iOS 27 edition, saved 29 September 2026. Built 30 September 2026.</div></footer>
+</body>
+</html>
